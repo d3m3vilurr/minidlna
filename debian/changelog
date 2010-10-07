@@ -1,0 +1,5 @@
+minidlna (1.0.18-1) unstable; urgency=low
+
+  * Initial release (Closes: #597228)
+
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Thu, 07 Oct 2010 18:21:19 +0200
