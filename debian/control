@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Benoît Knecht <benoit.knecht@fsfe.org>
 Build-Depends: debhelper (>= 7.0.50~), libavformat-dev, libflac-dev,
  libvorbis-dev, libid3tag0-dev, libexif-dev, libjpeg62-dev, libsqlite3-dev,
-Standards-Version: 3.8.4
+Standards-Version: 3.9.1
 Homepage: http://sourceforge.net/projects/minidlna/
 #Vcs-Git: git://git.debian.org/collab-maint/minidlna.git
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/minidlna.git;a=summary
