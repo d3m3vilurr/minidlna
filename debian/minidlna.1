@@ -1,0 +1,83 @@
+.\" Man page for minidlna
+.pc
+.TH MINIDLNA 1 "October  8, 2010"
+.SH NAME
+minidlna \- lightweight DLNA/UPnP-AV server
+.SH SYNOPSIS
+.B minidlna
+.RB \-f
+.IR config_file
+.RB [\| \-d \|]
+.RB [\| \-a
+.IR listening_ip \|]
+.RB [\| \-p
+.IR port \|]
+.RB [\| \-s
+.IR serial \|]
+.RB [\| \-m
+.IR model_number \|]
+.RB [\| \-t
+.IR notify_interval \|]
+.RB [\| \-P
+.IR pid_filename \|]
+.RB [\| \-w
+.IR url \|]
+.RB [\| \-R \|]
+.br
+.B minidlna
+.RB [\| \-h \||\| \-V \|]
+.SH DESCRIPTION
+The \fBminidlna\fP daemon is a DLNA/UPnP-AV server sharing media files (video,
+music and pictures) to clients on your network. Clients are typically
+multimedia players such as vlc, totem and xbmc, and devices such as portable
+media players, smartphones, televisions, video game entertainment systems and
+blu-ray players.
+.SH OPTIONS
+All the options below (except
+.B \-f\c
+) can be set in a configuration file.
+.\"See
+.\".BR minidlna.conf (5)
+.\"for details.
+.TP
+.BI \-a\  listening_ip
+IP address the daemon should be listening on.
+.TP
+.B \-d
+Activate debug mode (do not daemonize).
+.TP
+.BI \-f\  config_file
+Specify the location of the configuration file.
+.TP
+.B \-h
+Show help and exit.
+.TP
+.BI \-m\  model_number
+Model number the daemon will report to clients in its XML description.
+.TP
+.BI \-P\  pid_filename
+PID file to use; the default is \fI/var/run/minidlna.pid\fP.
+.TP
+.BI \-p\  port
+Port number to listen on; the default is port 80.
+.TP
+.B \-R
+Forces of full rescan of the media files.
+.BI \-s\  serial
+Serial number the daemon will report to clients in its XML description.
+.TP
+.BI \-t\  notify_interval
+Notify interval, in seconds; defaults to 895 seconds.
+.TP
+.B \-V
+Show the program version and exit.
+.TP
+.BI \-w\  url
+Sets the presentation url; the default is http address.
+.\".SH SEE ALSO
+.\".BR minidlna.conf (5).
+.SH AUTHOR
+minidlna was written by Thomas Bernard and Justin Maggard.
+.PP
+This manual page was written by Benoît Knecht <benoit.knecht@fsfe.org>,
+for the Debian project (and may be used by others).
