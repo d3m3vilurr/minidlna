@@ -1,5 +1,5 @@
 Source: minidlna
-Section: video
+Section: net
 Priority: optional
 Maintainer: Benoît Knecht <benoit.knecht@fsfe.org>
 Build-Depends: debhelper (>= 7.0.50~), libavformat-dev, libflac-dev,
