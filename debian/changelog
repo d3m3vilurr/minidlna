@@ -1,8 +1,9 @@
 minidlna (1.0.18-1) unstable; urgency=low
 
   * Initial release (Closes: #597228)
-  * Change Makefile to use $(DESTDIR)
-  * Add a distclean target
+  * Adapted Makefile:
+    - Use $(DESTDIR) as installation prefix
+    - Add a distclean target
   * Man page for minidlna(1)
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Thu, 07 Oct 2010 18:21:19 +0200
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Tue, 12 Oct 2010 10:35:47 +0200
