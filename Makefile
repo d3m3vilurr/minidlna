@@ -23,7 +23,7 @@ RM = rm -f
 INSTALL = install
 
 INSTALLPREFIX ?= $(DESTDIR)/usr
-SBININSTALLDIR = $(INSTALLPREFIX)/sbin
+BININSTALLDIR = $(INSTALLPREFIX)/bin
 ETCINSTALLDIR = $(DESTDIR)/etc
 
 BASEOBJS = minidlna.o upnphttp.o upnpdescgen.o upnpsoap.o \
@@ -57,8 +57,8 @@ distclean: clean
 	$(RM) config.h
 
 install:	minidlna
-	$(INSTALL) -d $(SBININSTALLDIR)
-	$(INSTALL) minidlna $(SBININSTALLDIR)
+	$(INSTALL) -d $(BININSTALLDIR)
+	$(INSTALL) minidlna $(BININSTALLDIR)
 
 install-conf:
 	$(INSTALL) -d $(ETCINSTALLDIR)

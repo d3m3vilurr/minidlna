@@ -134,7 +134,7 @@ case $OS_NAME in
 			OS_NAME=Debian
 			OS_VERSION=`cat /etc/debian_version`
 			OS_URL=http://www.debian.org/
-			LOG_PATH="/var/log"
+			DB_PATH="/var/lib/minidlna"
 			# use lsb_release (Linux Standard Base) when available
 			LSB_RELEASE=`which lsb_release 2>/dev/null`
 			if [ 0 -eq $? ]; then
