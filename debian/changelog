@@ -4,6 +4,11 @@ minidlna (1.0.18-1) unstable; urgency=low
   * Adapted Makefile:
     - Use $(DESTDIR) as installation prefix
     - Add a distclean target
+    - Custom log directory
+  * Add a log_dir configuration option
   * Man page for minidlna(1)
+  * Init script
+  * Pre- and post- inst/rm scripts to add/remove a minidlna user and group
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Tue, 12 Oct 2010 10:35:47 +0200
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Fri, 15 Oct 2010 00:32:01 +0200
+
