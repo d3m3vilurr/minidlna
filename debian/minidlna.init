@@ -43,7 +43,7 @@ DEFAULT=/etc/default/$NAME
 . /lib/lsb/init-functions
 
 # Do not start the daemon if NO_START is enabled in DEFAULT
-if [ "$NO_START" = "yes" ] && [ "$1" != "stop" ]; then
+if [ "$START_DAEMON" != "yes" ] && [ "$1" != "stop" ]; then
 	log_warning_msg "$NAME: Not starting $DESC."
 	log_warning_msg "$NAME: Disabled in $DEFAULT."
 	exit 0
@@ -69,7 +69,7 @@ if [ -z $GROUP ]; then
 	GROUP=$USER
 fi
 
-DAEMON_ARGS="-f $CONFIGFILE -P $PIDFILE"
+DAEMON_ARGS="-f $CONFIGFILE -P $PIDFILE $DAEMON_OPTS"
 
 #
 # Function that starts the daemon/service
