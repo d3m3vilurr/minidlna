@@ -1,0 +1,29 @@
+#!/bin/sh -e
+
+# Based on the mpd debian package.
+
+do_minidlna_stop () {
+    if [ -x /etc/init.d/minidlna ]; then
+        if [ -x /usr/sbin/invoke-rc.d ]; then
+            invoke-rc.d minidlna stop
+        else
+            /etc/init.d/minidlna stop
+        fi
+    fi
+}
+
+case "$1" in
+    remove|deconfigure)
+        do_minidlna_stop
+        ;;
+    upgrade|failed-upgrade)
+        ;;
+    *)
+        echo "prerm called with unknown argument \`$1'" >&2
+        exit 1
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0
