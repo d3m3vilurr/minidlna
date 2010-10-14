@@ -135,6 +135,7 @@ case $OS_NAME in
 			OS_VERSION=`cat /etc/debian_version`
 			OS_URL=http://www.debian.org/
 			DB_PATH="/var/lib/minidlna"
+			LOG_PATH="/var/log"
 			# use lsb_release (Linux Standard Base) when available
 			LSB_RELEASE=`which lsb_release 2>/dev/null`
 			if [ 0 -eq $? ]; then
@@ -163,6 +164,10 @@ echo "" >> ${CONFIGFILE}
 
 echo "/* full path of the file database */" >> ${CONFIGFILE}
 echo "#define DEFAULT_DB_PATH		\"${DB_PATH}\"" >> ${CONFIGFILE}
+echo "" >> ${CONFIGFILE}
+
+echo "/* full path of the log directory */" >> ${CONFIGFILE}
+echo "#define DEFAULT_LOG_PATH	\"${LOG_PATH}\"" >> ${CONFIGFILE}
 echo "" >> ${CONFIGFILE}
 
 echo "/* full path of the log directory */" >> ${CONFIGFILE}

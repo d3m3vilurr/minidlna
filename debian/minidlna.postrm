@@ -13,7 +13,7 @@ case "$1" in
         ;;
 
     purge)
-        rm -rf "${HOMEDIR}" /var/run/minidlna.pid
+        rm -rf "${HOMEDIR}" /var/run/minidlna.pid /var/log/minidlna.log
         # Find out the overrides owned by ${USER}.
         # WARNINIG: this won't work if the filenames contain whitespaces.
         OVERRIDES=`dpkg-statoverride --list | awk '$1 ~ /^'${USER}'$/ { print $4 }'`
