@@ -1,0 +1,40 @@
+#!/bin/sh -e
+# postrm script for minidlna
+
+USER=minidlna
+GROUP=${USER}
+HOMEDIR=`getent passwd ${USER} | awk -F: '{ print $6 }'`
+
+# Based on the mediatomb debian package.
+
+case "$1" in
+    remove)
+        rm -f /var/run/minidlna.pid
+        ;;
+
+    purge)
+        rm -rf "${HOMEDIR}" /var/run/minidlna.pid
+        # Find out the overrides owned by ${USER}.
+        # WARNINIG: this won't work if the filenames contain whitespaces.
+        OVERRIDES=`dpkg-statoverride --list | awk '$1 ~ /^'${USER}'$/ { print $4 }'`
+        for file in ${OVERRIDES}; do
+            dpkg-statoverride --remove "${file}"
+        done
+        echo "Removing user \`${USER}'."
+        deluser --quiet --system ${USER} || true
+        echo "Removing group \`${GROUP}'."
+        delgroup --quiet --system ${GROUP} || true
+        ;;
+
+    upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+        ;;
+
+    *)
+        echo "postrm called with unknown argument \`$1'" >&2
+        exit 1
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

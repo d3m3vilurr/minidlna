@@ -11,7 +11,7 @@ Homepage: http://sourceforge.net/projects/minidlna/
 
 Package: minidlna
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, adduser (>= 3.11), mawk | gawk
 Description: lightweight DLNA/UPnP-AV server targeted at embedded systems
  MiniDLNA (aka ReadyDLNA) is server software with the aim of being                                                                                               
  fully compliant with DLNA/UPnP-AV clients.                                                                                                                      

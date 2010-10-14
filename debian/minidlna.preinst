@@ -1,0 +1,43 @@
+#!/bin/sh -e
+# preinst script for minidlna
+
+USER=minidlna
+GROUP=${USER}
+HOMEDIR=/var/lib/minidlna
+
+# Based on the mediatomb debian package.
+
+# If we use NIS then errors should be tolerated. It's up to the
+# user to ensure that the ${USER} user is correctly setup.
+# Beware that there are two ypwhich one of them needs the 2>/dev/null!
+if test -n "`which ypwhich 2>/dev/null`"  &&  ypwhich >/dev/null 2>&1; then
+    set +e
+fi
+
+# Creating ${GROUP} if it isn't already there.
+if ! getent group ${GROUP} >/dev/null; then
+    # Adding system group.
+    addgroup --quiet --system ${GROUP}
+fi
+
+# Creating ${USER} if it isn't already there.
+if ! getent passwd ${USER} >/dev/null; then
+    # Adding system user.
+    adduser \
+     --quiet \
+     --system \
+     --ingroup ${GROUP} \
+     --home "${HOMEDIR}" \
+     --gecos "MiniDLNA server" \
+     --shell /usr/sbin/nologin \
+     --disabled-login \
+     --disabled-password \
+     ${USER}
+fi
+
+# End of NIS tolerance zone.
+set -e
+
+#DEBHELPER#
+
+exit 0

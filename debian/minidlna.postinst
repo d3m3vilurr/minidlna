@@ -1,0 +1,20 @@
+#!/bin/sh -e
+# postinst script for minidlna
+
+USER=minidlna
+GROUP=${USER}
+HOMEDIR=`getent passwd ${USER} | awk -F: '{ print $6 }'`
+
+# Based on the mediatomb debian package.
+
+if ! dpkg-statoverride --list /etc/minidlna.conf >/dev/null 2>&1; then
+    dpkg-statoverride --update --add ${USER} ${GROUP} 644 /etc/minidlna.conf
+fi
+
+if ! dpkg-statoverride --list /var/lib/minidlna >/dev/null 2>&1; then
+    dpkg-statoverride --update --add ${USER} ${GROUP} 755 "${HOMEDIR}"
+fi
+
+#DEBHELPER#
+
+exit 0
