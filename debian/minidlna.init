@@ -59,8 +59,8 @@ if [ -z $LOGFILE ]; then
 	LOGFILE=/var/log/minidlna.log
 fi
 
-# Run as `minidlna' if USER is not specified
-if [ -z $USER ]; then
+# Run as `minidlna' if USER is not specified or is `root'
+if [ -z $USER ] || [ $USER = "root" ]; then
 	USER=minidlna
 fi
 
