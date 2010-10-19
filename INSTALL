@@ -12,6 +12,8 @@ Prerequisites :
 - libvorbis
 - sqlite3
 - libavformat (the ffmpeg libraries)
+- libavutil
+- libavcodec
 - libuuid
 
 To Build and install :
