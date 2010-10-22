@@ -1,11 +1,12 @@
 minidlna (1.0.18-2) unstable; urgency=low
 
-  * Added libavutil-dev and libavcodec-dev to Build-Depends (thanks to
-    Fernando Lemos)
-  * Fixed a typo in tagutils.c (thanks to Fernando Lemos)
+  * Add libavutil-dev and libavcodec-dev to Build-Depends (thanks to Fernando
+    Lemos)
+  * Fix a typo in tagutils.c (thanks to Fernando Lemos)
   * Convert the minidlna man page to mdoc
+  * Add a man page for minidlna.conf
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Tue, 19 Oct 2010 15:34:13 +0200
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Fri, 22 Oct 2010 13:06:02 +0200
 
 minidlna (1.0.18-1) unstable; urgency=low
 
