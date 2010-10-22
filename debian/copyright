@@ -22,6 +22,11 @@ Copyright: 2007-2008, Leonhard Wimmer <leo@mediatomb.cc>
            2010, Benoît Knecht <benoit.knecht@fsfe.org>
 License: GPL-2
 
+Files: debian/minidlna.conf.5
+Copyright: 2009, Justin Maggard <jmaggard@users.sourceforge.net>
+           2010, Benoît Knecht <benoit.knecht@fsfe.org>
+License: GPL-2
+
 License: GPL-2
  This package is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License version 2 as

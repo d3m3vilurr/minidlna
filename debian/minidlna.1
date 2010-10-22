@@ -42,7 +42,8 @@ to clients on your network. Clients are typically multimedia players such as
 vlc, totem and xbmc, and devices such as portable media players, smartphones,
 televisions, video game entertainment systems and blu-ray players.
 .Sh OPTIONS
-All the options below (except -f) can also be set in a configuration file.
+All the options below (except -f) can also be set in a configuration file
+.Pq see Xr minidlna.conf 5 .
 .Bl -tag -width Ds
 .It Fl a Ar listening_ip
 IP address the daemon should be listening on.
@@ -75,8 +76,12 @@ Sets the presentation url; the default is http address.
 .Sh FILES
 .Bl -tag -width Ds -compact
 .It Pa /etc/minidlna.conf
-Default system-wide configuration file.
+Default system-wide configuration file. See
+.Xr minidlna.conf 5
+for details on the syntax.
 .El
+.Sh SEE ALSO
+.Xr minidlna.conf 5
 .Sh AUTHORS
 .Nm
 was written by Thomas Bernard and Justin Maggard.
