@@ -1,5 +1,7 @@
-#!/bin/sh -e
+#!/bin/sh
 # preinst script for minidlna
+
+set -e
 
 USER=minidlna
 GROUP=${USER}
