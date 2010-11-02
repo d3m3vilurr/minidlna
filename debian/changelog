@@ -1,3 +1,14 @@
+minidlna (1.0.18-3) unstable; urgency=low
+
+  * Fix the following issues (thanks to Michael Tautschnig for pointing them
+    out):
+    - Lintian warning (hyphen-used-as-minus-sign) in minidlna(1) man page
+    - Lintian warning (maintainer-script-without-set-e) in {pre,post}{inst,rm}
+    - Let {pre,post}inst take action in specific states only
+    - Use values from /etc/default/minidlna in {pre,post}{inst,rm}
+
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Wed, 03 Nov 2010 00:45:42 +0100
+
 minidlna (1.0.18-2) unstable; urgency=low
 
   * Add libavutil-dev and libavcodec-dev to Build-Depends (thanks to Fernando
