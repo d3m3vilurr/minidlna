@@ -5,7 +5,8 @@ set -e
 
 USER=minidlna
 GROUP=${USER}
-HOMEDIR=`getent passwd ${USER} | awk -F: '{ print $6 }'`
+HOME=`getent passwd ${USER} | awk -F: '{ print $6 }'`
+CONFIG=/etc/minidlna.conf
 
 # Based on the mediatomb debian package.
 
@@ -15,17 +16,14 @@ case "$1" in
         ;;
 
     purge)
-        rm -rf "${HOMEDIR}" /var/run/minidlna.pid /var/log/minidlna.log
-        # Find out the overrides owned by ${USER}.
-        # WARNINIG: this won't work if the filenames contain whitespaces.
-        OVERRIDES=`dpkg-statoverride --list | awk '$1 ~ /^'${USER}'$/ { print $4 }'`
-        for file in ${OVERRIDES}; do
-            dpkg-statoverride --remove "${file}"
-        done
-        echo "Removing user \`${USER}'."
-        deluser --quiet --system ${USER} || true
-        echo "Removing group \`${GROUP}'."
-        delgroup --quiet --system ${GROUP} || true
+        rm -rf "${HOME}" /var/lib/minidlna /var/run/minidlna.pid \
+            /var/log/minidlna.log ${CONFIG}
+
+        dpkg-statoverride --quiet --remove ${CONFIG}
+        dpkg-statoverride --quiet --remove /var/lib/minidlna
+
+        ( deluser --quiet --system ${USER}   && echo "Removing user \`${USER}'." )   || true
+        ( delgroup --quiet --system ${GROUP} && echo "Removing group \`${GROUP}'." ) || true
         ;;
 
     upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)

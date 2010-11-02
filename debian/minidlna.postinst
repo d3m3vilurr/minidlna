@@ -3,20 +3,33 @@
 
 set -e
 
-USER=minidlna
-GROUP=${USER}
-HOMEDIR=`getent passwd ${USER} | awk -F: '{ print $6 }'`
+unset USER
+
+DEFAULT=/etc/default/minidlna
+
+# Get values from ${DEFAULT}, if it exists.
+[ -r ${DEFAULT} ] && . ${DEFAULT}
+
+# Set the default user and group.
+if [ -z ${USER} ]; then
+    USER=minidlna
+fi
+if [ -z ${GROUP} ]; then
+    GROUP=minidlna
+fi
+
+CONFIG=/etc/minidlna.conf
 
 # Based on the mediatomb debian package.
 
 case "$1" in
     configure)
-        if ! dpkg-statoverride --list /etc/minidlna.conf >/dev/null 2>&1; then
-            dpkg-statoverride --update --add ${USER} ${GROUP} 644 /etc/minidlna.conf
-        fi
+        dpkg-statoverride --force --update \
+            --add ${USER} ${GROUP} 644 ${CONFIG} >/dev/null 2>&1
 
-        if ! dpkg-statoverride --list /var/lib/minidlna >/dev/null 2>&1; then
-            dpkg-statoverride --update --add ${USER} ${GROUP} 755 "${HOMEDIR}"
+        if [ -d /var/lib/minidlna ]; then
+            dpkg-statoverride --force --update \
+                --add ${USER} ${GROUP} 755 /var/lib/minidlna >/dev/null 2>&1
         fi
     ;;
 
