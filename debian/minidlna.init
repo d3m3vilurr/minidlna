@@ -20,6 +20,8 @@
 # Short-Description: DLNA/UPnP-AV media server
 ### END INIT INFO
 
+unset USER
+
 # PATH should only include /usr/* if it runs after the mountnfs.sh script
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="DLNA/UPnP-AV media server"
@@ -60,7 +62,7 @@ if [ -z $LOGFILE ]; then
 fi
 
 # Run as `minidlna' if USER is not specified or is `root'
-if [ -z $USER ] || [ $USER = "root" ]; then
+if [ -z $USER ]; then
 	USER=minidlna
 fi
 
