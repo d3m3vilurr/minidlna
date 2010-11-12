@@ -3,13 +3,38 @@ Name: minidlna
 Maintainer: Benoît Knecht <benoit.knecht@fsfe.org>
 Source: http://sourceforge.net/projects/minidlna/files/
 
-Files: *
-Copyright: 2009, Justin Maggard <jmaggard@users.sourceforge.net>
+Files: albumart.?, genconfig.sh, image_utils.?, inotify.c, metadata.?,
+       playlist.?, scanner.?, sql.?, tivo_beacon.h, tivo_commands.?,
+       tivo_utils.?, upnpsoap.h, utils.?, uuid.?
+Copyright: 2008-2010, Justin Maggard <jmaggard@users.sourceforge.net>
 License: GPL-2
 
-Files: *
+Files: daemonize.?, getifaddr.?, minidlnapath.h, minidlnatypes.h, minissdp.?,
+       minixml.?, options.c, testupnpdescgen.c, upnpdescgen.?,
+       upnpdescstrings.h, upnphttp.h, upnpreplyparse.?
 Copyright: 2006-2008, Thomas Bernard
 License: BSD
+
+Files: minidlna.c, upnpevents.?, upnpglobalvars.c, upnphttp.c, upnpsoap.c
+Copyright: 2006-2007, Thomas Bernard
+           2008-2009, Justin Maggard
+License: BSD and GPL-2
+
+Files: icons.c, log.?, ./tagutils/*, ./po/de.po
+Copyright: 2008-2010, NETGEAR Inc.
+License: GPL-2
+
+Files: tivo_beacon.c
+Copyright: 2003, Dave Clemans
+License: GPL-2+
+
+Files: ./linux/inotify.h
+Copyright: 2005, John McCutchan
+License: GPL-2
+
+Files: ./linux/inotifysyscalls.h
+Copyright: 2005, Robert Love
+License: GPL-2
 
 Files: debian/*
 Copyright: 2010, Benoît Knecht <benoit.knecht@fsfe.org>
@@ -31,6 +56,23 @@ License: GPL-2
  This package is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License version 2 as
  published by the Free Software Foundation.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+License: GPL-2+
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
  .
  This package is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
