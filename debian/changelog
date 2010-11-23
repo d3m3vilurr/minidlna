@@ -1,16 +1,18 @@
-minidlna (1.0.18-4) experimental; urgency=low
+minidlna (1.0.18-4) unstable; urgency=low
 
   [ Justin Maggard ]
   * Complete/clarify license information
 
   [ Benoît Knecht ]
-  * Fix FSF address in the GPL license headers
   * Update debian/copyright with the new license info
+  * Fix FSF address in the GPL license headers
+  * Add email addresses in the copyright file
+  * Removing AUTHORS section from the man pages
   * Remove prerm script and let debhelper generate it
-  * When called with -R, only remove art_cache and files.db
   * In postrm, only remove files created by minidlna
+  * When minidlna is called with -R, only remove art_cache and files.db
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Fri, 12 Nov 2010 15:55:02 +0100
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Tue, 23 Nov 2010 20:26:32 +0100
 
 minidlna (1.0.18-3) unstable; urgency=low
 
