@@ -12,12 +12,12 @@ License: GPL-2
 Files: daemonize.?, getifaddr.?, minidlnapath.h, minidlnatypes.h, minissdp.?,
        minixml.?, options.c, testupnpdescgen.c, upnpdescgen.?,
        upnpdescstrings.h, upnphttp.h, upnpreplyparse.?
-Copyright: 2006-2008, Thomas Bernard
+Copyright: 2006-2008, Thomas Bernard <miniupnp@free.fr>
 License: BSD
 
 Files: minidlna.c, upnpevents.?, upnpglobalvars.c, upnphttp.c, upnpsoap.c
-Copyright: 2006-2007, Thomas Bernard
-           2008-2009, Justin Maggard
+Copyright: 2006-2007, Thomas Bernard <miniupnp@free.fr>
+           2008-2009, Justin Maggard <jmaggard@users.sourceforge.net>
 License: BSD and GPL-2
 
 Files: icons.c, log.?, ./tagutils/*, ./po/de.po
@@ -29,11 +29,11 @@ Copyright: 2003, Dave Clemans
 License: GPL-2+
 
 Files: ./linux/inotify.h
-Copyright: 2005, John McCutchan
+Copyright: 2005, John McCutchan <john@johnmccutchan.com>
 License: GPL-2
 
 Files: ./linux/inotifysyscalls.h
-Copyright: 2005, Robert Love
+Copyright: 2005, Robert Love <robert.w.love@intel.com>
 License: GPL-2
 
 Files: debian/*
