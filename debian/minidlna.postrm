@@ -21,7 +21,7 @@ case "$1" in
         for dir in "${HOME}" /var/lib/minidlna; do
             rm -rf "${dir}/art_cache"
             rm -f  "${dir}/files.db"
-            rmdir --ignore-fail-on-non-empty "${dir}"
+            [ -d "${dir}" ] && rmdir --ignore-fail-on-non-empty "${dir}"
         done
         rm -f /var/run/minidlna.pid /var/log/minidlna.log ${CONFIG}
 
