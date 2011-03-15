@@ -1505,6 +1505,8 @@ GetVideoMetadata(const char * path, char * name)
 				asprintf(&m.mime, "video/mp4");
 		else if( strncmp(ctx->iformat->name, "matroska", 8) == 0 )
 			asprintf(&m.mime, "video/x-matroska");
+               else if( strcmp(ctx->iformat->name, "matroska,webm") == 0 )
+                        asprintf(&m.mime, "video/x-matroska");
 		else if( strcmp(ctx->iformat->name, "flv") == 0 )
 			asprintf(&m.mime, "video/x-flv");
 		else
