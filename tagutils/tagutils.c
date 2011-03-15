@@ -16,8 +16,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* This file is derived from mt-daapd project */
@@ -73,7 +72,7 @@ char *winamp_genre[] = {
 	       "Electronic",        "Pop-Folk",         "Eurodance",         "Dream",
 	/*38*/ "Southern Rock",     "Comedy",           "Cult",              "Gangsta",
 	       "Top 40",            "Christian Rap",    "Pop/Funk",          "Jungle",
-	/*40*/ "Native American",   "Cabaret",          "New Wave",          "Psychadelic",
+	/*40*/ "Native American",   "Cabaret",          "New Wave",          "Psychedelic",
 	       "Rave",              "Showtunes",        "Trailer",           "Lo-Fi",
 	/*48*/ "Tribal",            "Acid Punk",        "Acid Jazz",         "Polka",
 	       "Retro",             "Musical",          "Rock & Roll",       "Hard Rock",
