@@ -1,3 +1,15 @@
+minidlna (1.0.18-5) unstable; urgency=low
+
+  [ Piotr Górski ]
+  * Recognize WebM in Matroska container
+  * Fix FTBFS by linking to libogg (closes: #618067)
+
+  [ Benoît Knecht ]
+  * Create /var/run/minidlna and put the PID file in it (closes: #617722, #613853)
+  * Build-depend on libogg-dev explicitly
+
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Tue, 15 Mar 2011 17:02:18 +0100
+
 minidlna (1.0.18-4) unstable; urgency=low
 
   [ Justin Maggard ]
