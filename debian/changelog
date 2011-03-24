@@ -1,3 +1,9 @@
+minidlna (1.0.19-1) unstable; urgency=low
+
+  * New upstream version 1.0.19
+
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Thu, 24 Mar 2011 16:45:08 +0100
+
 minidlna (1.0.18-5) unstable; urgency=low
 
   [ Piotr Górski ]
