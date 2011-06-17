@@ -44,6 +44,12 @@ struct runtime_vars_s {
 	int notify_interval;	/* seconds between SSDP announces */
 };
 
+struct string_s {
+	char *data; // ptr to start of memory area
+	int off;
+	int size;
+};
+
 enum media_types {
 	ALL_MEDIA,
 	AUDIO_ONLY,
@@ -68,6 +74,11 @@ enum client_types {
 	EMediaRoom,
 	ESonyBDP,
 	ESonyBravia,
+	ERokuSoundBridge,
+	EToshibaTV,
+	ELGDevice,
+	ENetgearEVA2000,
+	ESamsungSeriesA,
 	EStandardDLNA150 = 100
 };
 
