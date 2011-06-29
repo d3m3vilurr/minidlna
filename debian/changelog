@@ -2,9 +2,11 @@ minidlna (1.0.20+dfsg-1) UNRELEASED; urgency=low
 
   * Imported Upstream version 1.0.20 (Closes: #629140)
   * Make source dfsg clean (Closes: #628952)
+  * Better document the media_dir configuration option (Closes: #626835)
+  * Don't let the configuration fail at compile time on kFreeBSD and Hurd
   * Update copyright information (and use DEP-5 version 174)
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Wed, 29 Jun 2011 08:37:44 +0200
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Wed, 29 Jun 2011 20:18:50 +0200
 
 minidlna (1.0.19-1) unstable; urgency=low
 
