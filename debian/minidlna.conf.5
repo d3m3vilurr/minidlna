@@ -5,7 +5,7 @@
 .\" GPLv2.
 .\"
 .\" Copyright (C) 2009 Justin Maggard <jmaggard@users.sourceforge.net>
-.\" Copyright (C) 2010 Benoît Knecht <benoit.knecht@fsfe.org>
+.\" Copyright (C) 2010-2011 Benoît Knecht <benoit.knecht@fsfe.org>
 .\"
 .\"    This package is free software; you can redistribute it and/or modify
 .\"    it under the terms of the GNU General Public License version 2 as
@@ -21,7 +21,7 @@
 .\"
 .\" On Debian systems, the complete text of the GNU General
 .\" Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
-.Dd 22 October, 2010
+.Dd 29 June, 2011
 .Dt MINIDLNA.CONF \&5 "File Formats Manual"
 .Os Debian
 .Sh NAME
@@ -103,6 +103,14 @@ For example, if you want to include only video files located under the
 .Pa /opt/media/videos
 directory, you would use
 .Cm media_dir=V,/opt/media/videos .
+.Pp
+After making changes to this option, you need to rebuild the database; either
+delete the database file
+.Po usually located at
+.Pa /var/lib/minidlna/files.db
+.Pc
+or run
+.Ic minidlna -R .
 .It Cm model_number
 Set the model number reported to clients.
 .It Cm network_interface
