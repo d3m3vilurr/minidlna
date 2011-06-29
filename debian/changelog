@@ -1,3 +1,11 @@
+minidlna (1.0.20+dfsg-1) UNRELEASED; urgency=low
+
+  * Imported Upstream version 1.0.20 (Closes: #629140)
+  * Make source dfsg clean (Closes: #628952)
+  * Update copyright information (and use DEP-5 version 174)
+
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Wed, 29 Jun 2011 08:37:44 +0200
+
 minidlna (1.0.19-1) unstable; urgency=low
 
   * New upstream version 1.0.19
