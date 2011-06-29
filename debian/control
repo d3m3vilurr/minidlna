@@ -5,7 +5,7 @@ Maintainer: Benoît Knecht <benoit.knecht@fsfe.org>
 Build-Depends: debhelper (>= 7.0.50~), libavformat-dev, libavutil-dev,
  libavcodec-dev, libflac-dev, libvorbis-dev, libid3tag0-dev, libexif-dev,
  libjpeg62-dev, libsqlite3-dev, libogg-dev
-Standards-Version: 3.9.1
+Standards-Version: 3.9.2
 Homepage: http://sourceforge.net/projects/minidlna/
 Vcs-Git: git://gitorious.org/minidlna/minidlna.git
 Vcs-Browser: https://gitorious.org/minidlna/minidlna
