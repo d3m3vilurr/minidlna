@@ -1,26 +1,26 @@
-Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=135
-Name: minidlna
-Maintainer: Benoît Knecht <benoit.knecht@fsfe.org>
+Format-Specification: http://anonscm.debian.org/viewvc/dep/web/deps/dep5.mdwn?view=markup&pathrev=174
+Upstream-Name: minidlna
+Upstream-Contact: Justin Maggard <jmaggard@users.sourceforge.net>
 Source: http://sourceforge.net/projects/minidlna/files/
 
-Files: albumart.?, genconfig.sh, image_utils.?, inotify.c, metadata.?,
-       playlist.?, scanner.?, sql.?, tivo_beacon.h, tivo_commands.?,
-       tivo_utils.?, upnpsoap.h, utils.?, uuid.?
+Files: albumart.? genconfig.sh image_utils.? inotify.c metadata.?
+       playlist.? scanner.? sql.? tivo_beacon.h tivo_commands.?
+       tivo_utils.? upnpsoap.h utils.? uuid.?
 Copyright: 2008-2010, Justin Maggard <jmaggard@users.sourceforge.net>
 License: GPL-2
 
-Files: daemonize.?, getifaddr.?, minidlnapath.h, minidlnatypes.h, minissdp.?,
-       minixml.?, options.c, testupnpdescgen.c, upnpdescgen.?,
-       upnpdescstrings.h, upnphttp.h, upnpreplyparse.?
+Files: daemonize.? getifaddr.? minidlnapath.h minidlnatypes.h minissdp.?
+       minixml.? options.c testupnpdescgen.c upnpdescgen.?
+       upnpdescstrings.h upnphttp.h upnpreplyparse.?
 Copyright: 2006-2008, Thomas Bernard <miniupnp@free.fr>
 License: BSD
 
-Files: minidlna.c, upnpevents.?, upnpglobalvars.c, upnphttp.c, upnpsoap.c
+Files: minidlna.c upnpevents.? upnpglobalvars.c upnphttp.c upnpsoap.c
 Copyright: 2006-2007, Thomas Bernard <miniupnp@free.fr>
            2008-2009, Justin Maggard <jmaggard@users.sourceforge.net>
 License: BSD and GPL-2
 
-Files: icons.c, log.?, ./tagutils/*, ./po/de.po
+Files: icons.c log.? tagutils/* po/de.po
 Copyright: 2008-2010, NETGEAR Inc.
 License: GPL-2
 
@@ -28,11 +28,11 @@ Files: tivo_beacon.c
 Copyright: 2003, Dave Clemans
 License: GPL-2+
 
-Files: ./linux/inotify.h
+Files: linux/inotify.h
 Copyright: 2005, John McCutchan <john@johnmccutchan.com>
 License: GPL-2
 
-Files: ./linux/inotifysyscalls.h
+Files: linux/inotifysyscalls.h
 Copyright: 2005, Robert Love <robert.w.love@intel.com>
 License: GPL-2
 
