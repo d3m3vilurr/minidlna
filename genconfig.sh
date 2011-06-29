@@ -87,12 +87,25 @@ case $OS_NAME in
 		fi
 		OS_URL=http://www.openbsd.org/
 		;;
-	FreeBSD)
+	*FreeBSD)
 		VER=`grep '#define __FreeBSD_version' /usr/include/sys/param.h | awk '{print $3}'`
 		if [ $VER -ge 700049 ]; then
 			echo "#define PFRULE_INOUT_COUNTS" >> ${CONFIGFILE}
 		fi
 		OS_URL=http://www.freebsd.org/
+		if [ -f /etc/debian_version ]; then
+			OS_NAME=Debian
+			OS_VERSION=`cat /etc/debian_version`
+			OS_URL=http://www.debian.org/
+			DB_PATH="/var/lib/minidlna"
+			LOG_PATH="/var/log"
+			# use lsb_release (Linux Standard Base) when available
+			LSB_RELEASE=`which lsb_release 2>/dev/null`
+			if [ 0 -eq $? ]; then
+				OS_NAME=`${LSB_RELEASE} -i -s`
+				OS_VERSION=`${LSB_RELEASE} -r -s`
+			fi
+		fi
 		;;
 	pfSense)
 		# we need to detect if PFRULE_INOUT_COUNTS macro is needed
@@ -143,6 +156,22 @@ case $OS_NAME in
 				OS_VERSION=`${LSB_RELEASE} -r -s`
 			fi
 		else
+			# use lsb_release (Linux Standard Base) when available
+			LSB_RELEASE=`which lsb_release 2>/dev/null`
+			if [ 0 -eq $? ]; then
+				OS_NAME=`${LSB_RELEASE} -i -s`
+				OS_VERSION=`${LSB_RELEASE} -r -s`
+			fi
+		fi
+		;;
+	GNU)
+		OS_URL=http://hurd.gnu.org/
+		if [ -f /etc/debian_version ]; then
+			OS_NAME=Debian
+			OS_VERSION=`cat /etc/debian_version`
+			OS_URL=http://www.debian.org/
+			DB_PATH="/var/lib/minidlna"
+			LOG_PATH="/var/log"
 			# use lsb_release (Linux Standard Base) when available
 			LSB_RELEASE=`which lsb_release 2>/dev/null`
 			if [ 0 -eq $? ]; then
