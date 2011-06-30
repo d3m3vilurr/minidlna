@@ -7,8 +7,8 @@ Build-Depends: debhelper (>= 8), libavformat-dev, libavutil-dev,
  libjpeg62-dev, libsqlite3-dev, libogg-dev
 Standards-Version: 3.9.2
 Homepage: http://sourceforge.net/projects/minidlna/
-Vcs-Git: git://gitorious.org/minidlna/minidlna.git
-Vcs-Browser: https://gitorious.org/minidlna/minidlna
+Vcs-Git: git://gitorious.org/debian-pkg/minidlna.git
+Vcs-Browser: https://gitorious.org/debian-pkg/minidlna
 
 Package: minidlna
 Architecture: any
