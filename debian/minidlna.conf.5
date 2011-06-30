@@ -21,7 +21,7 @@
 .\"
 .\" On Debian systems, the complete text of the GNU General
 .\" Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
-.Dd 29 June, 2011
+.Dd 30 June, 2011
 .Dt MINIDLNA.CONF \&5 "File Formats Manual"
 .Os Debian
 .Sh NAME
@@ -104,13 +104,24 @@ For example, if you want to include only video files located under the
 directory, you would use
 .Cm media_dir=V,/opt/media/videos .
 .Pp
-After making changes to this option, you need to rebuild the database; either
-delete the database file
-.Po usually located at
-.Pa /var/lib/minidlna/files.db
-.Pc
-or run
-.Ic minidlna -R .
+After making changes to this option, you need to rebuild the database.
+If you use an init script to start/stop
+.Nm minidlna,
+then you should run
+.Pq as root
+.Ic service
+.Cm minidlna
+.Cm force-reload .
+Otherwise, just add
+.Fl R
+to your usual
+.Nm minidlna
+command line
+.Po
+.Ic minidlna
+.Op ...
+.Fl R
+.Pc .
 .It Cm model_number
 Set the model number reported to clients.
 .It Cm network_interface
