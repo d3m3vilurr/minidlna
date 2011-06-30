@@ -1,3 +1,10 @@
+minidlna (1.0.20+dfsg-2) unstable; urgency=low
+
+  * Correct Version Control System links
+  * Document the force-reload option of the init script
+
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Thu, 30 Jun 2011 16:01:14 +0200
+
 minidlna (1.0.20+dfsg-1) unstable; urgency=low
 
   * Imported Upstream version 1.0.20 (Closes: #629140)
