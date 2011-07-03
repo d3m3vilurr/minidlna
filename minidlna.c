@@ -85,7 +85,9 @@
 #include "daemonize.h"
 #include "upnpevents.h"
 #include "scanner.h"
+#ifdef ENABLE_INOTIFY
 #include "inotify.h"
+#endif
 #include "log.h"
 #ifdef TIVO_SUPPORT
 #include "tivo_beacon.h"
@@ -549,6 +551,12 @@ init(int argc, char * * argv)
 			case UPNPINOTIFY:
 				if( (strcmp(ary_options[i].value, "yes") != 0) && !atoi(ary_options[i].value) )
 					CLEARFLAG(INOTIFY_MASK);
+#ifndef ENABLE_INOTIFY
+				if( (strcmp(ary_options[i].value, "yes") == 0) || atoi(ary_options[i].value) ) {
+					fprintf(stderr, "Ignoring configuration option 'inotify=%s',"
+							" disabled at compile time\n", ary_options[i].value);
+				}
+#endif
 				break;
 			case ENABLE_TIVO:
 				if( (strcmp(ary_options[i].value, "yes") == 0) || atoi(ary_options[i].value) )
@@ -855,7 +863,9 @@ main(int argc, char * * argv)
 	int max_fd = -1;
 	int last_changecnt = 0;
 	pid_t scanner_pid = 0;
+#ifdef ENABLE_INOTIFY
 	pthread_t inotify_thread = 0;
+#endif
 	struct media_dir_s *media_path, *last_path;
 	struct album_art_name_s *art_names, *last_name;
 #ifdef TIVO_SUPPORT
@@ -885,8 +895,13 @@ main(int argc, char * * argv)
 	if( !sqlite3_threadsafe() )
 	{
 		DPRINTF(E_ERROR, L_GENERAL, "SQLite library is not threadsafe!  "
-		                            "Scanning must be finished before file serving can begin, "
-		                            "and inotify will be disabled.\n");
+		                            "Scanning must be finished before file serving can begin"
+#ifdef ENABLE_INOTIFY
+					    ", and inotify will be disabled."
+#else
+					    "."
+#endif
+					    "\n");
 	}
 	if( sqlite3_libversion_number() < 3005001 )
 	{
@@ -960,11 +975,14 @@ main(int argc, char * * argv)
 #endif
 	}
 	signal(SIGCHLD, SIG_IGN);
+
+#ifdef ENABLE_INOTIFY
 	if( sqlite3_threadsafe() && sqlite3_libversion_number() >= 3005001 &&
 	    GETFLAG(INOTIFY_MASK) && pthread_create(&inotify_thread, NULL, start_inotify, NULL) )
 	{
 		DPRINTF(E_FATAL, L_GENERAL, "ERROR: pthread_create() failed for start_inotify.\n");
 	}
+#endif
 
 	for( i = 0; i < n_lan_addr; i++ )
 	{
@@ -1256,8 +1274,10 @@ shutdown:
 	for(i=0; i<n_lan_addr; i++)
 		close(snotify[i]);
 
+#ifdef ENABLE_INOTIFY
 	if( inotify_thread )
 		pthread_join(inotify_thread, NULL);
+#endif
 
 	sql_exec(db, "UPDATE SETTINGS set UPDATE_ID = %u", updateID);
 	sqlite3_close(db);
