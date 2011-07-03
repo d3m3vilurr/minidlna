@@ -19,7 +19,11 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
+#ifdef linux
 #include <linux/limits.h>
+#else
+#include <limits.h>
+#endif
 #include <sys/stat.h>
 #include <unistd.h>
 #include <sys/types.h>

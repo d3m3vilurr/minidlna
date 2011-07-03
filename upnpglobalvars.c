@@ -48,7 +48,11 @@
  */
 #include <sys/types.h>
 #include <netinet/in.h>
+#ifdef linux
 #include <linux/limits.h>
+#else
+#include <limits.h>
+#endif
 
 #include "config.h"
 #include "upnpglobalvars.h"
