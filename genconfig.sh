@@ -88,10 +88,6 @@ case $OS_NAME in
 		OS_URL=http://www.openbsd.org/
 		;;
 	*FreeBSD)
-		VER=`grep '#define __FreeBSD_version' /usr/include/sys/param.h | awk '{print $3}'`
-		if [ $VER -ge 700049 ]; then
-			echo "#define PFRULE_INOUT_COUNTS" >> ${CONFIGFILE}
-		fi
 		OS_URL=http://www.freebsd.org/
 		if [ -f /etc/debian_version ]; then
 			OS_NAME=Debian
