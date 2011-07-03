@@ -36,6 +36,8 @@ NETGEAR="/*#define NETGEAR*/"
 READYNAS="/*#define READYNAS*/"
 PNPX="#define PNPX 0"
 
+INOTIFY="/*#define ENABLE_INOTIFY*/"
+
 ${RM} ${CONFIGFILE}
 
 # Detect if there are missing headers
@@ -127,6 +129,7 @@ case $OS_NAME in
 		KERNVERC=`echo $OS_VERSION | awk -F. '{print $3}'`
 		KERNVERD=`echo $OS_VERSION | awk -F. '{print $4}'`
 		#echo "$KERNVERA.$KERNVERB.$KERNVERC.$KERNVERD"
+		INOTIFY="#define ENABLE_INOTIFY"
 		# NETGEAR ReadyNAS special case
 		if [ -f /etc/raidiator_version ]; then
 			OS_NAME=$(awk -F'!!|=' '{ print $1 }' /etc/raidiator_version)
@@ -203,6 +206,9 @@ echo "/* Comment the following line to use home made daemonize() func instead" >
 echo " * of BSD daemon() */" >> ${CONFIGFILE}
 echo "#define USE_DAEMON" >> ${CONFIGFILE}
 echo "" >> ${CONFIGFILE}
+
+echo "/* Enable inotify on systems that support it (i.e. Linux). */" >> ${CONFIGFILE}
+echo "${INOTIFY}" >> ${CONFIGFILE}
 
 echo "/* Enable if the system inotify.h exists.  Otherwise our own inotify.h will be used. */" >> ${CONFIGFILE}
 if [ -f /usr/include/sys/inotify.h ]; then
