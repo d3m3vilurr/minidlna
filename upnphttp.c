@@ -84,6 +84,12 @@
 #define MAX_BUFFER_SIZE 2147483647 // 2GB -- Too much?
 #define MIN_BUFFER_SIZE 65536
 
+/* At least on FreeBSD, MSG_MORE is not defined, so let's give it some default
+   value. Is there a better way? */
+#ifndef MSG_MORE
+#define MSG_MORE 0
+#endif
+
 #include "icons.c"
 
 enum event_type {
