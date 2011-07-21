@@ -41,6 +41,10 @@
 #if defined(sun)
 #include <sys/sockio.h>
 #endif
+#ifndef linux
+#include <ifaddrs.h>
+#include <net/if_dl.h>
+#endif
 
 #include "upnpglobalvars.h"
 #include "getifaddr.h"
@@ -126,7 +130,7 @@ getsysaddrs(void)
 	{
 		ifr = &ifc.ifc_req[i];
 		if( ioctl(s, SIOCGIFFLAGS, ifr) < 0 ||
-		    ifr->ifr_ifru.ifru_flags & IFF_LOOPBACK)
+		    ifr->ifr_flags & IFF_LOOPBACK)
 			continue;
 		if( ioctl(s, SIOCGIFADDR, ifr) < 0 )
 			continue;
@@ -146,7 +150,6 @@ getsysaddrs(void)
 		if (n_lan_addr >= MAX_LAN_ADDR)
 			break;
 	}
-	close(s);
 
 	return(n_lan_addr);
 }
@@ -154,13 +157,14 @@ getsysaddrs(void)
 int
 getsyshwaddr(char * buf, int len)
 {
-	struct if_nameindex *ifaces, *if_idx;
+	int ret = -1;
 	unsigned char mac[6];
+	memset(&mac, '\0', sizeof(mac));
+#ifdef linux
+	struct if_nameindex *ifaces, *if_idx;
 	struct ifreq ifr;
 	int fd;
-	int ret = -1;
 
-	memset(&mac, '\0', sizeof(mac));
 	/* Get the spatially unique node identifier */
 	fd = socket(AF_INET, SOCK_DGRAM, 0);
 	if( fd < 0 )
@@ -179,26 +183,43 @@ getsyshwaddr(char * buf, int len)
 			continue;
 		if( ioctl(fd, SIOCGIFHWADDR, &ifr) < 0 )
 			continue;
-		if( MACADDR_IS_ZERO(ifr.ifr_hwaddr.sa_data) )
+		memmove(mac, ifr.ifr_hwaddr.sa_data, 6);
+		if( MACADDR_IS_ZERO(mac) )
 			continue;
 		ret = 0;
 		break;
 	}
 	if_freenameindex(ifaces);
 	close(fd);
+#else
+	struct ifaddrs *ifap, *ifa;
+	if (getifaddrs(&ifap) != 0)
+		return(ret);
+	for (ifa = ifap; ifa != NULL; ifa = ifa->ifa_next)
+	{
+		if (ifa->ifa_addr->sa_family != AF_LINK)
+			continue;
+		struct sockaddr_dl* sdl = (struct sockaddr_dl *)ifa->ifa_addr;
+		memmove(mac, LLADDR(sdl), 6);
+		if( MACADDR_IS_ZERO(mac) )
+			continue;
+		ret = 0;
+		break;
+	}
+	freeifaddrs(ifap);
+#endif
 
 	if(ret == 0)
 	{
 		if(len > 12)
 		{
-			memmove(mac, ifr.ifr_hwaddr.sa_data, 6);
 			sprintf(buf, "%02x%02x%02x%02x%02x%02x",
 			        mac[0]&0xFF, mac[1]&0xFF, mac[2]&0xFF,
 			        mac[3]&0xFF, mac[4]&0xFF, mac[5]&0xFF);
 		}
 		else if(len == 6)
 		{
-			memmove(buf, ifr.ifr_hwaddr.sa_data, 6);
+			memmove(buf, mac, 6);
 		}
 	}
 	return ret;
