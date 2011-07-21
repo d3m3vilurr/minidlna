@@ -42,7 +42,7 @@ endif
 
 ALLOBJS = $(BASEOBJS) $(LNXOBJS)
 
-LIBS = -lpthread -lexif -ljpeg -lsqlite3 -lavformat -lid3tag -lFLAC -lvorbis -logg
+LIBS = -lpthread -lexif -ljpeg -lsqlite3 -lavformat -lavutil -lid3tag -lFLAC -lvorbis -logg
 #STATIC_LINKING: LIBS = -lvorbis -logg -lm -lsqlite3 -lpthread -lexif -ljpeg -lFLAC -lm -lid3tag -lz -lavformat -lavutil -lavcodec -lm
 
 TESTUPNPDESCGENOBJS = testupnpdescgen.o upnpdescgen.o
