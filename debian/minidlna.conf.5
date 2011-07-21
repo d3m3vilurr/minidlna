@@ -21,7 +21,7 @@
 .\"
 .\" On Debian systems, the complete text of the GNU General
 .\" Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
-.Dd 30 June, 2011
+.Dd July 21, 2011
 .Dt MINIDLNA.CONF \&5 "File Formats Manual"
 .Os Debian
 .Sh NAME
@@ -133,6 +133,39 @@ Port for HTTP traffic. Defaults to port 80.
 .It Cm presentation_url
 .\" TODO: Needs a better description.
 Define the presentation URL.
+.It Cm root_container
+Use a different container as the root of the tree exposed to clients. The
+possible values are:
+.Bl -bullet -offset indent -compact
+.It
+.Ql \&.
+to use the standard container (this is the default);
+.It
+.Ql B
+to use the
+.Dq Browse Directory
+container;
+.It
+.Ql M
+to use the
+.Dq Music
+container;
+.It
+.Ql V
+to use the
+.Dq Video
+container;
+.It
+.Ql P
+to use the
+.Dq Pictures
+container.
+.El
+If you specify
+.Ql B
+and the client device is audio only, then
+.Dq Music/Folders
+will be used as the root container.
 .It Cm serial
 Set the serial number reported to clients.
 .It Cm strict_dlna
