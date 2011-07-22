@@ -1,4 +1,4 @@
-minidlna (1.0.21+dfsg-1) UNRELEASED; urgency=low
+minidlna (1.0.21+dfsg-1) unstable; urgency=low
 
   * New upstream version (1.0.21)
   * Fix typo in minidlna(1) man page
@@ -16,7 +16,7 @@ minidlna (1.0.21+dfsg-1) UNRELEASED; urgency=low
     - Do not let make_dir fail on EISDIR
   * Add a script and Debian's SVG logo to make a DFSG-compatible icons.c file
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Fri, 22 Jul 2011 09:06:39 +0200
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Fri, 22 Jul 2011 11:50:40 +0200
 
 minidlna (1.0.20+dfsg-2) unstable; urgency=low
 
