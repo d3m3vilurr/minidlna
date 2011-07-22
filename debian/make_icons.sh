@@ -23,6 +23,9 @@
 #        be obtained with:
 #
 #        wget http://www.debian.org/logos/openlogo-nd.svg
+#
+#        You'll need to have inkscape and imagemagick installed for this script
+#        to work.
 
 svg="${1}"
 png="$(mktemp)"
