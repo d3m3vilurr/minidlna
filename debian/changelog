@@ -3,8 +3,20 @@ minidlna (1.0.21+dfsg-1) UNRELEASED; urgency=low
   * New upstream version (1.0.21)
   * Fix typo in minidlna(1) man page
   * Document the new root_container option in minidlna.conf(5)
+  * Fix FTBFS on kfreebsd:
+    - Remove FreeBSD version test in genconfig.sh
+    - Include linux/limits.h on Linux only
+    - Make inotify support optional
+    - Compile inotify support on Linux only
+    - Use SYS_clock_gettime instead of __NR_clock_gettime
+    - Define MSG_MORE if it doesn't exist
+    - Get IP and MAC addresses in a non Linux-specific way
+  * Fix runtime failures on kfreebsd:
+    - Do not use sendfile if it's not implemented
+    - Do not let make_dir fail on EISDIR
+  * Add a script and Debian's SVG logo to make a DFSG-compatible icons.c file
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Thu, 21 Jul 2011 16:10:56 +0200
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Fri, 22 Jul 2011 09:06:39 +0200
 
 minidlna (1.0.20+dfsg-2) unstable; urgency=low
 
