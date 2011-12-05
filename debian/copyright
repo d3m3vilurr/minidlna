@@ -49,8 +49,8 @@ Files: debian/*
 Copyright: 2010-2011, Benoît Knecht <benoit.knecht@fsfe.org>
 License: BSD-3-clause
 
-Files: debian/minidlna.preinst, debian/minidlna.postinst,
-       debian/minidlna.postrm, debian/minidlna.init
+Files: debian/minidlna.preinst debian/minidlna.postinst
+       debian/minidlna.postrm debian/minidlna.init
 Copyright: 2007-2008, Leonhard Wimmer <leo@mediatomb.cc>
            2007-2008, Andres Mejia <mcitadel@gmail.com>
            2010, Benoît Knecht <benoit.knecht@fsfe.org>
