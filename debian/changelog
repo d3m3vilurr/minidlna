@@ -6,8 +6,10 @@ minidlna (1.0.22+dfsg-1) UNRELEASED; urgency=low
   * DEP-5 debian/copyright:
     - Space-delimited list in Files headers
     - Bump Format URL to revision 213 (no changes)
+  * Build-Depend on libjpeg-dev instead of libjpeg62-dev, as part of the
+    transition from libjpeg62 to libjpeg8 (Closes: #643636)
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Mon, 19 Dec 2011 15:41:13 +0100
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Mon, 19 Dec 2011 15:48:59 +0100
 
 minidlna (1.0.21+dfsg-2) UNRELEASED; urgency=low
 

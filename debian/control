@@ -9,7 +9,7 @@ Build-Depends: debhelper (>= 8),
                libexif-dev,
                libflac-dev,
                libid3tag0-dev,
-               libjpeg62-dev,
+               libjpeg-dev,
                libogg-dev,
                libsqlite3-dev,
                libvorbis-dev
