@@ -2,9 +2,17 @@ Source: minidlna
 Section: net
 Priority: optional
 Maintainer: Benoît Knecht <benoit.knecht@fsfe.org>
-Build-Depends: debhelper (>= 8), libavformat-dev, libavutil-dev,
- libavcodec-dev, libflac-dev, libvorbis-dev, libid3tag0-dev, libexif-dev,
- libjpeg62-dev, libsqlite3-dev, libogg-dev
+Build-Depends: debhelper (>= 8),
+               libavcodec-dev,
+               libavformat-dev,
+               libavutil-dev,
+               libexif-dev,
+               libflac-dev,
+               libid3tag0-dev,
+               libjpeg62-dev,
+               libogg-dev,
+               libsqlite3-dev,
+               libvorbis-dev
 Standards-Version: 3.9.2
 Homepage: http://sourceforge.net/projects/minidlna/
 Vcs-Git: git://gitorious.org/debian-pkg/minidlna.git
@@ -12,8 +20,11 @@ Vcs-Browser: https://gitorious.org/debian-pkg/minidlna
 
 Package: minidlna
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, adduser (>= 3.11), mawk | gawk,
- lsb-base (>= 3.0-6)
+Depends: adduser (>= 3.11),
+         lsb-base (>= 3.0-6),
+         mawk | gawk,
+         ${misc:Depends},
+         ${shlibs:Depends}
 Description: lightweight DLNA/UPnP-AV server targeted at embedded systems
  MiniDLNA (aka ReadyDLNA) is server software with the aim of being
  fully compliant with DLNA/UPnP-AV clients.
