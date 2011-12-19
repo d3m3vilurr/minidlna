@@ -9,8 +9,9 @@ minidlna (1.0.22+dfsg-1) UNRELEASED; urgency=low
   * Build-Depend on libjpeg-dev instead of libjpeg62-dev, as part of the
     transition from libjpeg62 to libjpeg8 (Closes: #643636)
   * Document the 'listening_ip' configuration option
+  * Add a Description and rewrite the Short-Description of the init script
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Mon, 19 Dec 2011 16:15:26 +0100
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Mon, 19 Dec 2011 16:25:40 +0100
 
 minidlna (1.0.21+dfsg-2) UNRELEASED; urgency=low
 
