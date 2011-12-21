@@ -1,4 +1,4 @@
-minidlna (1.0.22+dfsg-1) UNRELEASED; urgency=low
+minidlna (1.0.22+dfsg-1) unstable; urgency=low
 
   * Imported Upstream version 1.0.22
   * Make sure '/etc/init.d/minidlna status' reports the correct status
@@ -11,7 +11,7 @@ minidlna (1.0.22+dfsg-1) UNRELEASED; urgency=low
   * Document the 'listening_ip' configuration option
   * Add a Description and rewrite the Short-Description of the init script
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Mon, 19 Dec 2011 16:25:40 +0100
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Wed, 21 Dec 2011 14:06:39 +0100
 
 minidlna (1.0.21+dfsg-2) UNRELEASED; urgency=low
 
