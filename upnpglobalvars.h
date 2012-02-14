@@ -56,7 +56,7 @@
 
 #include <sqlite3.h>
 
-#define MINIDLNA_VERSION "1.0.22"
+#define MINIDLNA_VERSION "1.0.23"
 
 #ifdef NETGEAR
 # define SERVER_NAME "ReadyDLNA"
@@ -66,7 +66,7 @@
 
 #define CLIENT_CACHE_SLOTS 20
 #define USE_FORK 1
-#define DB_VERSION 6
+#define DB_VERSION 7
 
 #ifdef ENABLE_NLS
 #define _(string) gettext(string)
@@ -175,10 +175,11 @@ extern time_t startup_time;
 
 extern struct runtime_vars_s runtime_vars;
 /* runtime boolean flags */
-extern int runtime_flags;
+extern uint32_t runtime_flags;
 #define INOTIFY_MASK          0x0001
 #define TIVO_MASK             0x0002
 #define DLNA_STRICT_MASK      0x0004
+#define NO_PLAYLIST_MASK      0x0008
 
 #define SETFLAG(mask)	runtime_flags |= mask
 #define GETFLAG(mask)	runtime_flags & mask

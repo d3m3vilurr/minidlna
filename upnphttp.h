@@ -71,6 +71,8 @@ struct upnphttp {
 	int req_soapActionLen;
 	const char * req_Callback;	/* For SUBSCRIBE */
 	int req_CallbackLen;
+	const char * req_NT;
+	int req_NTLen;
 	int req_Timeout;
 	const char * req_SID;		/* For UNSUBSCRIBE */
 	int req_SIDLen;
@@ -92,9 +94,10 @@ struct upnphttp {
 #define FLAG_SID                0x00000002
 #define FLAG_RANGE              0x00000004
 #define FLAG_HOST               0x00000008
+#define FLAG_LANGUAGE           0x00000010
 
+#define FLAG_INVALID_REQ        0x00000040
 #define FLAG_HTML               0x00000080
-#define FLAG_INVALID_REQ        0x00000010
 
 #define FLAG_CHUNKED            0x00000100
 #define FLAG_TIMESEEK           0x00000200
@@ -113,7 +116,8 @@ struct upnphttp {
 #define FLAG_NO_RESIZE          0x02000000
 #define FLAG_MS_PFS             0x04000000 // Microsoft PlaysForSure client
 #define FLAG_SAMSUNG            0x08000000
-#define FLAG_AUDIO_ONLY         0x10000000
+#define FLAG_SAMSUNG_TV         0x10000000
+#define FLAG_AUDIO_ONLY         0x20000000
 
 #define FLAG_FREE_OBJECT_ID     0x00000001
 #define FLAG_ROOT_CONTAINER     0x00000002

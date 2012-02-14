@@ -129,11 +129,22 @@ IsAuthorizedValidated(struct upnphttp * h, const char * action)
 
 	char body[512];
 	int bodylen;
+	struct NameValueParserData data;
+	const char * id;
 
-	bodylen = snprintf(body, sizeof(body), resp,
-		action, "urn:microsoft.com:service:X_MS_MediaReceiverRegistrar:1",
-		1, action);	
-	BuildSendAndCloseSoapResp(h, body, bodylen);
+	ParseNameValue(h->req_buf + h->req_contentoff, h->req_contentlen, &data);
+	id = GetValueFromNameValueList(&data, "DeviceID");
+	if(id)
+	{
+		bodylen = snprintf(body, sizeof(body), resp,
+			action, "urn:microsoft.com:service:X_MS_MediaReceiverRegistrar:1",
+			1, action);	
+		BuildSendAndCloseSoapResp(h, body, bodylen);
+	}
+	else
+		SoapError(h, 402, "Invalid Args");
+
+	ClearNameValueList(&data);	
 }
 
 static void
@@ -165,10 +176,11 @@ GetSortCapabilities(struct upnphttp * h, const char * action)
 		"<u:%sResponse "
 		"xmlns:u=\"%s\">"
 		"<SortCaps>"
-                  "dc:title,"
-                  "dc:date,"
+		  "dc:title,"
+		  "dc:date,"
 		  "upnp:class,"
-                  "upnp:originalTrackNumber"
+		  "upnp:album,"
+		  "upnp:originalTrackNumber"
 		"</SortCaps>"
 		"</u:%sResponse>";
 
@@ -245,11 +257,32 @@ GetCurrentConnectionInfo(struct upnphttp * h, const char * action)
 
 	char body[sizeof(resp)+128];
 	int bodylen;
+	struct NameValueParserData data;
+	const char * id_str;
+	int id;
+	char *endptr;
 
-	bodylen = snprintf(body, sizeof(body), resp,
-		action, "urn:schemas-upnp-org:service:ConnectionManager:1",
-		action);	
-	BuildSendAndCloseSoapResp(h, body, bodylen);
+	ParseNameValue(h->req_buf + h->req_contentoff, h->req_contentlen, &data);
+	id_str = GetValueFromNameValueList(&data, "ConnectionID");
+	DPRINTF(E_INFO, L_HTTP, "GetCurrentConnectionInfo(%s)\n", id_str);
+	if(id_str)
+		id = strtol(id_str, &endptr, 10);
+	if(!id_str || !id_str[0] || endptr[0] || id != 0)
+	{
+		SoapError(h, 402, "Invalid Args");
+	}
+	else if(id != 0)
+	{
+		SoapError(h, 701, "No such object error");
+	}
+	else
+	{
+		bodylen = snprintf(body, sizeof(body), resp,
+			action, "urn:schemas-upnp-org:service:ConnectionManager:1",
+			action);	
+		BuildSendAndCloseSoapResp(h, body, bodylen);
+	}
+	ClearNameValueList(&data);	
 }
 
 static void
@@ -324,6 +357,7 @@ mime_to_ext(const char * mime, char * buf)
 	}
 }
 
+/* Standard DLNA/UPnP filter flags */
 #define FILTER_CHILDCOUNT                        0x00000001
 #define FILTER_DC_CREATOR                        0x00000002
 #define FILTER_DC_DATE                           0x00000004
@@ -345,9 +379,12 @@ mime_to_ext(const char * mime, char * buf)
 #define FILTER_UPNP_GENRE                        0x00040000
 #define FILTER_UPNP_ORIGINALTRACKNUMBER          0x00080000
 #define FILTER_UPNP_SEARCHCLASS                  0x00100000
-#define FILTER_SEC                               0x00200000
-#define FILTER_SEC_CAPTION_INFO                  0x00400000
-#define FILTER_SEC_CAPTION_INFO_EX               0x00800000
+/* Vendor-specific filter flags */
+#define FILTER_SEC_CAPTION_INFO_EX               0x01000000
+#define FILTER_SEC_DCM_INFO                      0x02000000
+#define FILTER_PV_SUBTITLE_FILE_TYPE             0x04000000
+#define FILTER_PV_SUBTITLE_FILE_URI              0x08000000
+#define FILTER_AV_MEDIA_CLASS                    0x10000000
 
 static u_int32_t
 set_filter_flags(char * filter, struct upnphttp *h)
@@ -356,7 +393,8 @@ set_filter_flags(char * filter, struct upnphttp *h)
 	u_int32_t flags = 0;
 
 	if( !filter || (strlen(filter) <= 1) )
-		return 0xFFFFFFFF;
+		/* Not the full 32 bits.  Skip vendor-specific stuff by default. */
+		return 0xFFFFFF;
 	if( h->reqflags & FLAG_SAMSUNG )
 		flags |= FILTER_DLNA_NAMESPACE;
 	item = strtok_r(filter, ",", &saveptr);
@@ -471,15 +509,25 @@ set_filter_flags(char * filter, struct upnphttp *h)
 			flags |= FILTER_RES;
 			flags |= FILTER_RES_SIZE;
 		}
-		else if( strcmp(item, "sec:CaptionInfo") == 0)
+		else if( strcmp(item, "sec:CaptionInfoEx") == 0 )
 		{
-			flags |= FILTER_SEC;
-			flags |= FILTER_SEC_CAPTION_INFO;
-		}
-		else if( strcmp(item, "sec:CaptionInfoEx") == 0)
-		{
-			flags |= FILTER_SEC;
 			flags |= FILTER_SEC_CAPTION_INFO_EX;
+		}
+		else if( strcmp(item, "sec:dcmInfo") == 0 )
+		{
+			flags |= FILTER_SEC_DCM_INFO;
+		}
+		else if( strcmp(item, "res@pv:subtitleFileType") == 0 )
+		{
+			flags |= FILTER_PV_SUBTITLE_FILE_TYPE;
+		}
+		else if( strcmp(item, "res@pv:subtitleFileUri") == 0 )
+		{
+			flags |= FILTER_PV_SUBTITLE_FILE_URI;
+		}
+		else if( strcmp(item, "av:mediaClass") == 0 )
+		{
+			flags |= FILTER_AV_MEDIA_CLASS;
 		}
 		item = strtok_r(NULL, ",", &saveptr);
 	}
@@ -488,7 +536,7 @@ set_filter_flags(char * filter, struct upnphttp *h)
 }
 
 char *
-parse_sort_criteria(char * sortCriteria, int * error)
+parse_sort_criteria(char *sortCriteria, int *error)
 {
 	char *order = NULL;
 	char *item, *saveptr;
@@ -517,6 +565,12 @@ parse_sort_criteria(char * sortCriteria, int * error)
 			reverse = 1;
 			item++;
 		}
+		else
+		{
+			DPRINTF(E_DEBUG, L_HTTP, "No order specified [%s]\n", item);
+			*error = 1;
+			goto unhandled_order;
+		}
 		if( strcasecmp(item, "upnp:class") == 0 )
 		{
 			strcat(order, "o.CLASS");
@@ -534,9 +588,13 @@ parse_sort_criteria(char * sortCriteria, int * error)
 		{
 			strcat(order, "d.DISC, d.TRACK");
 		}
+		else if( strcasecmp(item, "upnp:album") == 0 )
+		{
+			strcat(order, "d.ALBUM");
+		}
 		else
 		{
-			printf("Unhandled SortCriteria [%s]\n", item);
+			DPRINTF(E_DEBUG, L_HTTP, "Unhandled SortCriteria [%s]\n", item);
 			*error = 1;
 			if( i )
 			{
@@ -619,6 +677,17 @@ add_res(char *size, char *duration, char *bitrate, char *sampleFrequency,
 	if( resolution && (args->filter & FILTER_RES_RESOLUTION) ) {
 		strcatf(args->str, "resolution=\"%s\" ", resolution);
 	}
+	if( args->filter & (FILTER_PV_SUBTITLE_FILE_TYPE|FILTER_PV_SUBTITLE_FILE_URI) )
+	{
+		if( sql_get_int_field(db, "SELECT ID from CAPTIONS where ID = '%s'", detailID) > 0 )
+		{
+			if( args->filter & FILTER_PV_SUBTITLE_FILE_TYPE )
+				strcatf(args->str, "pv:subtitleFileType=\"SRT\" ");
+			if( args->filter & FILTER_PV_SUBTITLE_FILE_URI )
+				strcatf(args->str, "pv:subtitleFileUri=\"http://%s:%d/Captions/%s.srt\" ",
+			                lan_addr[args->iface].str, runtime_vars.port, detailID);
+		}
+	}
 	strcatf(args->str, "protocolInfo=\"http-get:*:%s:%s\"&gt;"
 	                          "http://%s:%d/MediaItems/%s.%s"
 	                          "&lt;/res&gt;",
@@ -687,6 +756,7 @@ callback(void *args, int argc, char **argv, char **azColName)
 
 	if( strncmp(class, "item", 4) == 0 )
 	{
+		char *alt_title = NULL;
 		/* We may need special handling for certain MIME types */
 		if( *mime == 'v' )
 		{
@@ -730,6 +800,18 @@ callback(void *args, int argc, char **argv, char **azColName)
 					strcpy(mime+8, "mkv");
 				}
 			}
+			/* LG hack: subtitles won't get used unless dc:title contains a dot. */
+			else if( passed_args->client == ELGDevice && (passed_args->filter & FILTER_RES) )
+			{
+				if( sql_get_int_field(db, "SELECT ID from CAPTIONS where ID = '%s'", detailID) > 0 )
+				{
+					ret = asprintf(&alt_title, "%s.", title);
+					if( ret > 0 )
+						title = alt_title;
+					else
+						alt_title = NULL;
+				}
+			}
 		}
 		else if( *mime == 'a' )
 		{
@@ -766,7 +848,7 @@ callback(void *args, int argc, char **argv, char **azColName)
 		if( date && (passed_args->filter & FILTER_DC_DATE) ) {
 			ret = strcatf(str, "&lt;dc:date&gt;%s&lt;/dc:date&gt;", date);
 		}
-		if( (passed_args->flags & FLAG_SAMSUNG) && (passed_args->filter & FILTER_SEC_CAPTION_INFO_EX) ) {
+		if( passed_args->filter & FILTER_SEC_DCM_INFO ) {
 			/* Get bookmark */
 			ret = strcatf(str, "&lt;sec:dcmInfo&gt;CREATIONDATE=0,FOLDER=%s,BM=%d&lt;/sec:dcmInfo&gt;",
 			              title, sql_get_int_field(db, "SELECT SEC from BOOKMARKS where ID = '%s'", detailID));
@@ -915,21 +997,33 @@ callback(void *args, int argc, char **argv, char **azColName)
 					     strncmp(dlna_pn, "AVC_TS_MP_HD_AC3", 16) == 0 ||
 					     strncmp(dlna_pn, "AVC_TS_HP_HD_AC3", 16) == 0))
 					{
-						sprintf(dlna_buf, "DLNA.ORG_PN=AVC_TS_HD_50_AC3;DLNA.ORG_OP=01;DLNA.ORG_CI=0");
+					        sprintf(dlna_buf, "DLNA.ORG_PN=AVC_TS_HD_50_AC3%s", dlna_pn + 16);
 						add_res(size, duration, bitrate, sampleFrequency, nrAudioChannels,
 						        resolution, dlna_buf, mime, detailID, ext, passed_args);
 					}
 					break;
 				case ELGDevice:
-					if( sql_get_int_field(db, "SELECT ID from CAPTIONS where ID = '%s'", detailID) > 0 )
+					if( alt_title )
 					{
 						ret = strcatf(str, "&lt;res protocolInfo=\"http-get:*:text/srt:*\"&gt;"
 						                     "http://%s:%d/Captions/%s.srt"
 						                   "&lt;/res&gt;",
 						                   lan_addr[passed_args->iface].str, runtime_vars.port, detailID);
+						free(alt_title);
 					}
 					break;
+				case ESamsungSeriesC:
 				default:
+					if( passed_args->filter & FILTER_SEC_CAPTION_INFO_EX )
+					{
+						if( sql_get_int_field(db, "SELECT ID from CAPTIONS where ID = '%s'", detailID) > 0 )
+						{
+							ret = strcatf(str, "&lt;sec:CaptionInfoEx sec:type=\"srt\"&gt;"
+							                     "http://%s:%d/Captions/%s.srt"
+							                   "&lt;/sec:CaptionInfoEx&gt;",
+							                   lan_addr[passed_args->iface].str, runtime_vars.port, detailID);
+						}
+					}
 					break;
 				}
 			}
@@ -961,6 +1055,9 @@ callback(void *args, int argc, char **argv, char **azColName)
 		                   "&lt;dc:title&gt;%s&lt;/dc:title&gt;"
 		                   "&lt;upnp:class&gt;object.%s&lt;/upnp:class&gt;",
 		                   title, class);
+		if( strcmp(class+10, "storageFolder") == 0 ) {
+			ret = strcatf(str, "&lt;upnp:storageUsed&gt;%s&lt;/upnp:storageUsed&gt;", (size ? size : "-1"));
+		}
 		if( creator && (passed_args->filter & FILTER_DC_CREATOR) ) {
 			ret = strcatf(str, "&lt;dc:creator&gt;%s&lt;/dc:creator&gt;", creator);
 		}
@@ -977,6 +1074,20 @@ callback(void *args, int argc, char **argv, char **azColName)
 			}
 			ret = strcatf(str, "&gt;http://%s:%d/AlbumArt/%s-%s.jpg&lt;/upnp:albumArtURI&gt;",
 			                   lan_addr[passed_args->iface].str, runtime_vars.port, album_art, detailID);
+		}
+		if( passed_args->filter & FILTER_AV_MEDIA_CLASS ) {
+			char class;
+			if( strncmp(id, MUSIC_ID, sizeof(MUSIC_ID)) == 0 )
+				class = 'M';
+			else if( strncmp(id, VIDEO_ID, sizeof(VIDEO_ID)) == 0 )
+				class = 'V';
+			else if( strncmp(id, IMAGE_ID, sizeof(IMAGE_ID)) == 0 )
+				class = 'P';
+			else
+				class = 0;
+			if( class )
+				ret = strcatf(str, "&lt;av:mediaClass xmlns:av=\"urn:schemas-sony-com:av\"&gt;"
+				                    "%c&lt;/av:mediaClass&gt;", class);
 		}
 		ret = strcatf(str, "&lt;/container&gt;");
 	}
@@ -1017,10 +1128,20 @@ BrowseContentDirectory(struct upnphttp * h, const char * action)
 
 	if( (ptr = GetValueFromNameValueList(&data, "RequestedCount")) )
 		RequestedCount = atoi(ptr);
+	if( RequestedCount < 0 )
+	{
+		SoapError(h, 402, "Invalid Args");
+		goto browse_error;
+	}
 	if( !RequestedCount )
 		RequestedCount = -1;
 	if( (ptr = GetValueFromNameValueList(&data, "StartingIndex")) )
 		StartingIndex = atoi(ptr);
+	if( StartingIndex < 0 )
+	{
+		SoapError(h, 402, "Invalid Args");
+		goto browse_error;
+	}
 	if( !BrowseFlag || (strcmp(BrowseFlag, "BrowseDirectChildren") && strcmp(BrowseFlag, "BrowseMetadata")) )
 	{
 		SoapError(h, 402, "Invalid Args");
@@ -1028,7 +1149,7 @@ BrowseContentDirectory(struct upnphttp * h, const char * action)
 	}
 	if( !ObjectID && !(ObjectID = GetValueFromNameValueList(&data, "ContainerID")) )
 	{
-		SoapError(h, 701, "No such object error");
+		SoapError(h, 402, "Invalid Args");
 		goto browse_error;
 	}
 
@@ -1039,9 +1160,9 @@ BrowseContentDirectory(struct upnphttp * h, const char * action)
 	args.iface = h->iface;
 	args.filter = set_filter_flags(Filter, h);
 	if( args.filter & FILTER_DLNA_NAMESPACE )
-	{
 		ret = strcatf(&str, DLNA_NAMESPACE);
-	}
+	if( args.filter & (FILTER_PV_SUBTITLE_FILE_TYPE|FILTER_PV_SUBTITLE_FILE_URI) )
+		ret = strcatf(&str, PV_NAMESPACE);
 	strcatf(&str, "&gt;\n");
 
 	args.returned = 0;
@@ -1119,16 +1240,21 @@ BrowseContentDirectory(struct upnphttp * h, const char * action)
 			if( strncmp(ObjectID, MUSIC_PLIST_ID, strlen(MUSIC_PLIST_ID)) == 0 )
 			{
 				if( strcmp(ObjectID, MUSIC_PLIST_ID) == 0 )
-					asprintf(&orderBy, "order by d.TITLE");
+					ret = asprintf(&orderBy, "order by d.TITLE");
 				else
-					asprintf(&orderBy, "order by length(OBJECT_ID), OBJECT_ID");
+					ret = asprintf(&orderBy, "order by length(OBJECT_ID), OBJECT_ID");
 			}
 			else if( args.client == ERokuSoundBridge )
 			{
 #ifdef __sparc__
 				if( totalMatches < 10000 )
 #endif
-				asprintf(&orderBy, "order by o.CLASS, d.DISC, d.TRACK, d.TITLE");
+				ret = asprintf(&orderBy, "order by o.CLASS, d.DISC, d.TRACK, d.TITLE");
+			}
+			if( ret == -1 )
+			{
+				orderBy = NULL;
+				ret = 0;
 			}
 		}
 		/* If it's a DLNA client, return an error for bad sort criteria */
@@ -1218,7 +1344,7 @@ SearchContentDirectory(struct upnphttp * h, const char * action)
 	{
 		if( !(ContainerID = GetValueFromNameValueList(&data, "ObjectID")) )
 		{
-			SoapError(h, 701, "No such object error");
+			SoapError(h, 402, "Invalid Args");
 			goto search_error;
 		}
 	}
