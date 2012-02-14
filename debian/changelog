@@ -1,4 +1,33 @@
-minidlna (1.0.22+dfsg-1) unstable; urgency=low
+minidlna (1.0.23+dfsg-1) unstable; urgency=low
+
+  * New upstream version (Closes: #659871)
+    - Enable the subtitle menu on some Samsung TV's
+    - Add subtitle support for Panasonic TV's
+    - Add workarounds for LifeTab tablets' bad behavior
+    - Speed up playlist parsing
+    - Make metadata-based virtual containers case insensitive
+    - Add folder art support (very few clients support this though)
+    - Improve trimming of quotation marks
+    - Fix SRT caption support with the latest Samsung Series D firmware
+    - Fix subtitles on LG TV's for items whose titles don't have a dot in
+      them
+    - Add support for the av:mediaClass tag, so some Sony devices can filter
+      items by media type
+    - Fix inotify detection issues on first-level folders
+    - Work around LifeTab's broken DLNA support
+    - Add image rotation support during resize (mostly useful for TiVo)
+  * Add copyright information for new upstream files
+
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Tue, 14 Feb 2012 14:33:35 +0100
+
+minidlna (1.0.21+dfsg-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Replace libjpeg62-dev build-dep with libjpeg-dev (closes: #643636)
+
+ -- Julien Cristau <jcristau@debian.org>  Sun, 29 Jan 2012 18:36:58 +0100
+
+minidlna (1.0.22+dfsg-1) UNRELEASED; urgency=low
 
   * Imported Upstream version 1.0.22
   * Make sure '/etc/init.d/minidlna status' reports the correct status
