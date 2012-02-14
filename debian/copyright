@@ -14,10 +14,10 @@ Files: albumart.? genconfig.sh image_utils.? inotify.c metadata.?
 Copyright: 2008-2010, Justin Maggard <jmaggard@users.sourceforge.net>
 License: GPL-2
 
-Files: daemonize.? getifaddr.? minidlnapath.h minidlnatypes.h minissdp.?
-       minixml.? options.c testupnpdescgen.c upnpdescgen.?
+Files: codelength.h daemonize.? getifaddr.? minidlnapath.h minidlnatypes.h
+       minissdp.? minixml.? options.c testupnpdescgen.c upnpdescgen.?
        upnpdescstrings.h upnphttp.h upnpreplyparse.?
-Copyright: 2006-2008, Thomas Bernard <miniupnp@free.fr>
+Copyright: 2005-2008, Thomas Bernard <miniupnp@free.fr>
 License: BSD-3-clause
 
 Files: minidlna.c upnpevents.? upnpglobalvars.c upnphttp.c upnpsoap.c
