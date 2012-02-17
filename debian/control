@@ -22,7 +22,6 @@ Package: minidlna
 Architecture: any
 Depends: adduser,
          lsb-base,
-         mawk | gawk,
          ${misc:Depends},
          ${shlibs:Depends}
 Description: lightweight DLNA/UPnP-AV server targeted at embedded systems
