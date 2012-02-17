@@ -30,12 +30,14 @@ case "$1" in
         dpkg-statoverride --quiet --remove /var/lib/minidlna || true
 
         if getent passwd ${USER} >/dev/null; then
-            echo -n "Removing user '${USER}'..."
-            deluser --quiet --system ${USER} && echo " Done." || echo " Failed."
+            echo "Removing user '${USER}'..." >&2
+            deluser --quiet --system ${USER} \
+                && echo "Done." >&2 || echo "Failed." >&2
         fi
         if getent group ${GROUP} >/dev/null; then
-            echo -n "Removing group '${GROUP}'..."
-            delgroup --quiet --system --only-if-empty ${GROUP} && echo " Done." || echo " Failed."
+            echo "Removing group '${GROUP}'..." >&2
+            delgroup --quiet --system --only-if-empty ${GROUP} \
+                && echo "Done." >&2 || echo "Failed." >&2
         fi
         ;;
 
