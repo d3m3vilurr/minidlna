@@ -17,8 +17,13 @@ minidlna (1.0.23+dfsg-1) unstable; urgency=low
     - Work around LifeTab's broken DLNA support
     - Add image rotation support during resize (mostly useful for TiVo)
   * Add copyright information for new upstream files
+  * Remove versioned dependency on adduser and lsb-base, as both are satisfied
+    even in oldstable
+  * Remove dependency on (gawk | mawk) as awk is depended on by an essential
+    package (thanks to Jakub Wilk)
+  * Output messages to stderr in postrm (thanks to Jakub Wilk)
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Tue, 14 Feb 2012 14:33:35 +0100
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Fri, 17 Feb 2012 14:45:51 +0100
 
 minidlna (1.0.21+dfsg-1.1) unstable; urgency=low
 
