@@ -20,8 +20,8 @@ Vcs-Browser: https://gitorious.org/debian-pkg/minidlna
 
 Package: minidlna
 Architecture: any
-Depends: adduser (>= 3.11),
-         lsb-base (>= 3.0-6),
+Depends: adduser,
+         lsb-base,
          mawk | gawk,
          ${misc:Depends},
          ${shlibs:Depends}
