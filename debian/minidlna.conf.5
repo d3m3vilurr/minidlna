@@ -79,6 +79,23 @@ should listen on.
 .It Cm log_dir
 Path to the directory where the log file should be stored. Defaults to
 .Pa /var/log .
+.It Cm log_level
+Defines down to which level of importance messages should be logged. Must be
+one of
+.Dq off ,
+.Dq fatal ,
+.Dq error ,
+.Dq warn ,
+.Dq info
+or
+.Dq debug ,
+listed here in order of decreasing importance.
+.Dq off
+turns off logging messages entirely,
+.Dq fatal
+logs the most critical messages only, and so on down to
+.Dq debug
+that logs every single messages.
 .It Cm media_dir
 Path to the directory containing the media files the
 .Nm minidlna
@@ -126,6 +143,15 @@ command line
 .Op ...
 .Fl R
 .Pc .
+.It Cm minissdpdsocket
+Path to the MiniSSDPd socket, if you want to use
+.Nm minidlna
+together with MiniSSDPd. Defaults to
+.Pa /var/run/minissdpd.sock .
+.It Cm model_name
+Set the model name reported to clients.
+Defaults to
+.Dq Windows Media Connect compatible (MiniDLNA) .
 .It Cm model_number
 Set the model number reported to clients.
 .It Cm network_interface
