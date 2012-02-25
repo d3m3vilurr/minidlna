@@ -14,7 +14,7 @@ minidlna (1.0.24+dfsg-1) unstable; urgency=low
 
  -- Benoît Knecht <benoit.knecht@fsfe.org>  Sun, 19 Feb 2012 16:05:34 +0100
 
-minidlna (1.0.23+dfsg-1) UNRELEASED; urgency=low
+minidlna (1.0.23+dfsg-1) unstable; urgency=low
 
   * New upstream version (Closes: #659871)
     - Enable the subtitle menu on some Samsung TV's
