@@ -11,8 +11,11 @@ minidlna (1.0.24+dfsg-1) unstable; urgency=low
     - Add DLNA.ORG_FLAGS support
   * Update the minidlna.conf(5) man page with new options
   * Update the default minidlna.conf configuration file accordingly
+  * Bump Standards-Version to 3.9.3
+    - Use /run instead of /var/run by default
+  * Use debhelper compat 9
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Sun, 19 Feb 2012 16:05:34 +0100
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Thu, 01 Mar 2012 15:31:09 +0100
 
 minidlna (1.0.23+dfsg-1) unstable; urgency=low
 
