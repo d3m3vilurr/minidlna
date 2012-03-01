@@ -7,7 +7,7 @@ USER=minidlna
 GROUP=${USER}
 HOME=`getent passwd ${USER} | awk -F: '{ print $6 }'`
 CONFIG=/etc/minidlna.conf
-PIDDIR=/var/run/minidlna
+PIDDIR=/run/minidlna
 
 # Based on the mediatomb debian package.
 
