@@ -13,7 +13,7 @@ Build-Depends: debhelper (>= 8),
                libogg-dev,
                libsqlite3-dev,
                libvorbis-dev
-Standards-Version: 3.9.2
+Standards-Version: 3.9.3
 Homepage: http://sourceforge.net/projects/minidlna/
 Vcs-Git: git://gitorious.org/debian-pkg/minidlna.git
 Vcs-Browser: https://gitorious.org/debian-pkg/minidlna
