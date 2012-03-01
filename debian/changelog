@@ -1,6 +1,6 @@
 minidlna (1.0.24+dfsg-1) unstable; urgency=low
 
-  * New upstream version:
+  * New upstream version (Closes: #661259)
     - Fix playlist browsing with no SortOrder specified
     - Fix inotify detection of caption file removal
     - Handle an empty DeviceID from Zyxel media player SOAP request
@@ -14,8 +14,9 @@ minidlna (1.0.24+dfsg-1) unstable; urgency=low
   * Bump Standards-Version to 3.9.3
     - Use /run instead of /var/run by default
   * Use debhelper compat 9
+  * Update the DEP-5 Format URL in debian/copyright
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Thu, 01 Mar 2012 15:31:09 +0100
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Thu, 01 Mar 2012 17:39:15 +0100
 
 minidlna (1.0.23+dfsg-1) unstable; urgency=low
 
