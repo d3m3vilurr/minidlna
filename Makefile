@@ -12,10 +12,16 @@
 #
 #CFLAGS = -Wall -O -D_GNU_SOURCE -g -DDEBUG
 #CFLAGS = -Wall -g -Os -D_GNU_SOURCE
-CFLAGS = -Wall -g -O3 -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 \
-	 -I/usr/include/ffmpeg \
-	 -I/usr/include/libavutil -I/usr/include/libavcodec -I/usr/include/libavformat \
-	 -I/usr/include/ffmpeg/libavutil -I/usr/include/ffmpeg/libavcodec -I/usr/include/ffmpeg/libavformat
+CFLAGS += -Wall -O3 \
+	  -I/usr/include/ffmpeg \
+	  -I/usr/include/libavutil \
+	  -I/usr/include/libavcodec \
+	  -I/usr/include/libavformat \
+	  -I/usr/include/ffmpeg/libavutil \
+	  -I/usr/include/ffmpeg/libavcodec \
+	  -I/usr/include/ffmpeg/libavformat
+CPPFLAGS += -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64
+
 #STATIC_LINKING: CFLAGS += -DSTATIC
 #STATIC_LINKING: LDFLAGS = -static
 CC = gcc
@@ -71,12 +77,12 @@ install-conf:
 
 minidlna:	$(BASEOBJS) $(LNXOBJS) $(LIBS)
 	@echo Linking $@
-	@$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(BASEOBJS) $(LNXOBJS) $(LIBS)
+	@$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $(BASEOBJS) $(LNXOBJS) $(LIBS)
 
 
 testupnpdescgen:	$(TESTUPNPDESCGENOBJS)
 	@echo Linking $@
-	@$(CC) $(CFLAGS) -o $@ $(TESTUPNPDESCGENOBJS)
+	@$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $(TESTUPNPDESCGENOBJS)
 
 config.h:	genconfig.sh
 	./genconfig.sh
@@ -134,7 +140,7 @@ log.o: log.h
 
 .c.o:
 	@echo Compiling $*.c
-	@$(CC) $(CFLAGS) -o $@ -c $< && exit 0;\
+	@$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $< && exit 0;\
 		echo "The following command failed:" 1>&2;\
-		echo "$(CC) $(CFLAGS) -o $@ -c $<";\
-		$(CC) $(CFLAGS) -o $@ -c $< &>/dev/null
+		echo "$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $<";\
+		$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $< &>/dev/null
