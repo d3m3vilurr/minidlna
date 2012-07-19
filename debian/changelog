@@ -1,3 +1,20 @@
+minidlna (1.0.25+dfsg-1) unstable; urgency=low
+
+  * New upstream version
+    - Fix a couple crash bugs on malformed WAV files
+    - Forcibly tweak the model number for Xbox360 clients, or they might
+      ignore us
+    - Enable all network interfaces by default if none were specified
+    - Add flag to force downscaled thumbnails rather than using embedded ones
+    - Add DirecTV client detection, and fix image resolution issue
+    - Add support for the latest ffmpeg/libav library versions
+    - Fix a potential crash on requests for a resize of a non-existent image
+    - Make DeviceID checking more permissive for Sagem Radio
+  * Adapt "Get IP and MAC addresses in a non Linux-specific way" patch to
+    upstream changes
+
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Thu, 19 Jul 2012 15:01:08 +0200
+
 minidlna (1.0.24+dfsg-1) unstable; urgency=low
 
   * New upstream version (Closes: #661259)
