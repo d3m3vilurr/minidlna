@@ -12,8 +12,9 @@ minidlna (1.0.25+dfsg-1) unstable; urgency=low
     - Make DeviceID checking more permissive for Sagem Radio
   * Adapt "Get IP and MAC addresses in a non Linux-specific way" patch to
     upstream changes
+  * Fix Makefile so that hardening flags are actually passed to the compiler
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Thu, 19 Jul 2012 15:01:08 +0200
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Thu, 19 Jul 2012 18:27:42 +0200
 
 minidlna (1.0.24+dfsg-1) unstable; urgency=low
 
