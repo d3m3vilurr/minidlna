@@ -22,22 +22,23 @@
 #        minidlna debian package, and wish to generate the patches needed to
 #        build the package. The patches are written to debian/patches/.
 #
-#        WARNING: Patches in debian/patches/ may be overwritten, if they happen
-#        to have the same name as git-format-patch wants to use; patches that
-#        do not follow git-format-patch's naming scheme are not deleted. The
-#        debian/patches/series file is overwritten, and will contain the list
-#        of generated patches.
+#        WARNING: The content of debian/patches/ will be removed by this
+#        script, and replaced by the patches generated from the difference
+#        between the upstream and the debian branches in the git repository.
 #
-#        If ${debian_branch} is not specified, it defaults to 'master', and if
+#        If ${debian_branch} is not specified, it defaults to 'HEAD', and if
 #        ${upstream_branch} is also missing, it defaults to 'dfsg'.
 #        make_patches.sh can be run from anywhere within the git repository.
 
 upstream=${1:-dfsg}
-debian=${2:-master}
+debian=${2:-HEAD}
 
 cd $(git rev-parse --show-toplevel) || exit 1
 
 paths=$(git ls-tree -r --name-only ${debian} | egrep -v '^(\.|debian/)')
+
+mkdir -p debian/patches
+rm -f debian/patches/*
 
 git format-patch -o debian/patches -k --no-signature \
     ${upstream}..${debian} ${paths} |
