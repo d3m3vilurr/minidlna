@@ -37,7 +37,7 @@ debian=${2:-master}
 
 cd $(git rev-parse --show-toplevel) || exit 1
 
-paths=$(git ls-tree -r --name-only ${debian} | egrep -v '^debian')
+paths=$(git ls-tree -r --name-only ${debian} | egrep -v '^(\.|debian/)')
 
 git format-patch -o debian/patches -k --no-signature \
     ${upstream}..${debian} ${paths} |
