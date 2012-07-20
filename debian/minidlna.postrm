@@ -4,7 +4,9 @@
 set -e
 
 USER=minidlna
+DEFAULT_HOME="/var/lib/${USER}"
 HOME=`getent passwd ${USER} | awk -F: '{ print $6 }'`
+[ -z "${HOME}" ] && HOME="${DEFAULT_HOME}"
 CONFIG=/etc/minidlna.conf
 PIDDIR=/run/minidlna
 
@@ -18,11 +20,12 @@ case "$1" in
     purge)
         # Only remove the files we expect minidlna to have created, in case the
         # user stored something valuable there.
-        for dir in "${HOME}" /var/lib/minidlna; do
+        for dir in "${HOME}" "${DEFAULT_HOME}"; do
             rm -rf "${dir}/art_cache"
             rm -f  "${dir}/files.db"
-            [ -d "${dir}" ] && rmdir --ignore-fail-on-non-empty "${dir}"
         done
+        [ -d "${DEFAULT_HOME}" ] && \
+            rmdir --ignore-fail-on-non-empty "${DEFAULT_HOME}"
         rm -f /var/log/minidlna.log ${CONFIG}
 
         dpkg-statoverride --quiet --remove ${CONFIG} || true
