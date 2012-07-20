@@ -64,6 +64,12 @@ case "$1" in
                      "exist" >&2
                 exit 1
             fi
+        else
+            # Make sure that the ${HOME} directory exists and belongs to
+            # ${USER}:${GROUP}.
+            HOME=`getent passwd ${USER} | awk -F: '{ print $6 }'`
+            mkdir -p ${HOME}
+            chown ${USER}:${GROUP} ${HOME}
         fi
 
         # End of NIS tolerance zone.
