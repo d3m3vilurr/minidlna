@@ -5,7 +5,7 @@ set -e
 
 USER=minidlna
 DEFAULT_HOME="/var/lib/${USER}"
-HOME=`getent passwd ${USER} | awk -F: '{ print $6 }'`
+HOME=$(getent passwd ${USER} | awk -F: '{ print $6 }')
 [ -z "${HOME}" ] && HOME="${DEFAULT_HOME}"
 CONFIG=/etc/minidlna.conf
 PIDDIR=/run/minidlna

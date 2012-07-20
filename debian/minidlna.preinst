@@ -27,7 +27,7 @@ case "$1" in
         # If we use NIS then errors should be tolerated. It's up to the
         # user to ensure that the ${USER} user is correctly setup.
         # Beware that there are two ypwhich one of them needs the 2>/dev/null!
-        if test -n "`which ypwhich 2>/dev/null`"  &&  ypwhich >/dev/null 2>&1; then
+        if test -n "$(which ypwhich 2>/dev/null)"  &&  ypwhich >/dev/null 2>&1; then
             set +e
         fi
 
@@ -67,7 +67,7 @@ case "$1" in
         else
             # Make sure that the ${HOME} directory exists and belongs to
             # ${USER}:${GROUP}.
-            HOME=`getent passwd ${USER} | awk -F: '{ print $6 }'`
+            HOME=$(getent passwd ${USER} | awk -F: '{ print $6 }')
             mkdir -p ${HOME}
             chown ${USER}:${GROUP} ${HOME}
         fi
