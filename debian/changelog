@@ -13,8 +13,17 @@ minidlna (1.0.25+dfsg-1) unstable; urgency=low
   * Adapt "Get IP and MAC addresses in a non Linux-specific way" patch to
     upstream changes
   * Fix Makefile so that hardening flags are actually passed to the compiler
+  * preinst: Make sure that the home directory exists and is owned by the
+    correct user:group
+  * postrm: Do not remove the minidlna user and group on purge
+  * postrm: During purge, only remove the $HOME directory if it's
+    /var/lib/minidlna; we don't want to mess with home directories if the
+    admin changed the default
+  * postrm: Do not remove the configuration file in the purge case, it has
+    already been removed by dpkg before the script is called
+  * Replace `...` with $(...) in all maintainer scripts
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Thu, 19 Jul 2012 18:27:42 +0200
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Fri, 20 Jul 2012 15:52:23 +0200
 
 minidlna (1.0.24+dfsg-1) unstable; urgency=low
 
