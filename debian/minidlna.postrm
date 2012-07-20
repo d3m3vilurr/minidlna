@@ -26,7 +26,7 @@ case "$1" in
         done
         [ -d "${DEFAULT_HOME}" ] && \
             rmdir --ignore-fail-on-non-empty "${DEFAULT_HOME}"
-        rm -f /var/log/minidlna.log ${CONFIG}
+        rm -f /var/log/minidlna.log
 
         dpkg-statoverride --quiet --remove ${CONFIG} || true
         dpkg-statoverride --quiet --remove /var/lib/minidlna || true
