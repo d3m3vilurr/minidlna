@@ -766,18 +766,19 @@ init(int argc, char * * argv)
 	{
 		DPRINTF(E_ERROR, L_GENERAL, "Usage:\n\t"
 		        "%s [-d] [-v] [-f config_file]\n"
-			"\t\t[-a listening_ip] [-p port]\n"
+			"\t\t[-a listening_ip] [-i network_interface]\n"
 			/*"[-l logfile] " not functionnal */
-			"\t\t[-s serial] [-m model_number] \n"
+			"\t\t[-p port] [-s serial] [-m model_number]\n"
 			"\t\t[-t notify_interval] [-P pid_filename]\n"
-			"\t\t[-w url] [-R] [-V] [-h]\n"
+			"\t\t[-w url] [-R] [-L] [-V] [-h]\n"
 		        "\nNotes:\n\tNotify interval is in seconds. Default is 895 seconds.\n"
 			"\tDefault pid file is %s.\n"
 			"\tWith -d minidlna will run in debug mode (not daemonize).\n"
 			"\t-w sets the presentation url. Default is http address on port 80\n"
+			"\t-v enables verbose output\n"
 			"\t-h displays this text\n"
 			"\t-R forces a full rescan\n"
-			"\t-L do note create playlists\n"
+			"\t-L do not create playlists\n"
 			"\t-V print the version number\n",
 		        argv[0], pidfilename);
 		return 1;
