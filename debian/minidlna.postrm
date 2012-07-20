@@ -4,7 +4,6 @@
 set -e
 
 USER=minidlna
-GROUP=${USER}
 HOME=`getent passwd ${USER} | awk -F: '{ print $6 }'`
 CONFIG=/etc/minidlna.conf
 PIDDIR=/run/minidlna
@@ -28,17 +27,6 @@ case "$1" in
 
         dpkg-statoverride --quiet --remove ${CONFIG} || true
         dpkg-statoverride --quiet --remove /var/lib/minidlna || true
-
-        if getent passwd ${USER} >/dev/null; then
-            echo "Removing user '${USER}'..." >&2
-            deluser --quiet --system ${USER} \
-                && echo "Done." >&2 || echo "Failed." >&2
-        fi
-        if getent group ${GROUP} >/dev/null; then
-            echo "Removing group '${GROUP}'..." >&2
-            delgroup --quiet --system --only-if-empty ${GROUP} \
-                && echo "Done." >&2 || echo "Failed." >&2
-        fi
         ;;
 
     upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
