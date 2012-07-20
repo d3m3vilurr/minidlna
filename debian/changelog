@@ -10,6 +10,7 @@ minidlna (1.0.25+dfsg-1) unstable; urgency=low
     - Add support for the latest ffmpeg/libav library versions
     - Fix a potential crash on requests for a resize of a non-existent image
     - Make DeviceID checking more permissive for Sagem Radio
+  * Update the minidlna(1) man page with new command-line options
   * Adapt "Get IP and MAC addresses in a non Linux-specific way" patch to
     upstream changes
   * Fix Makefile so that hardening flags are actually passed to the compiler
@@ -23,7 +24,7 @@ minidlna (1.0.25+dfsg-1) unstable; urgency=low
     already been removed by dpkg before the script is called
   * Replace `...` with $(...) in all maintainer scripts
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Fri, 20 Jul 2012 15:52:23 +0200
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Fri, 20 Jul 2012 17:26:54 +0200
 
 minidlna (1.0.24+dfsg-1) unstable; urgency=low
 
