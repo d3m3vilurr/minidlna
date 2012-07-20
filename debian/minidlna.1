@@ -13,7 +13,7 @@
 .\" 3. Neither the name of the University nor the names of its contributors
 .\"    may be used to endorse or promote products derived from this software
 .\"    without specific prior written permission.
-.Dd July 21, 2011
+.Dd July 20, 2012
 .Dt MINIDLNA \&1 "General Commands Manual"
 .Os Debian
 .Sh NAME
@@ -23,13 +23,16 @@
 .Nm
 .Op Fl f Ar config_file
 .Op Fl d
-.Op Fl a listening_ip
+.Op Fl v
+.Op Fl a Ar ip_address
+.Op Fl i Ar interface
 .Op Fl p Ar port
 .Op Fl s Ar serial
 .Op Fl m Ar model_number
 .Op Fl t Ar notify_interval
 .Op Fl P Ar pid_filename
 .Op Fl w Ar url
+.Op Fl L
 .Op Fl R
 .Pp
 .Nm
@@ -47,8 +50,8 @@ All the options below
 can also be set in a configuration file
 .Pq see Xr minidlna.conf 5 .
 .Bl -tag -width Ds
-.It Fl a Ar listening_ip
-IP address the daemon should be listening on.
+.It Fl a Ar ip_address
+IP address to listen on.
 .It Fl d
 Activate debug mode (do not daemonize).
 .It Fl f Ar config_file
@@ -57,6 +60,10 @@ Specify the location of the configuration file. Uses
 by default.
 .It Fl h
 Show help and exit.
+.It Fl i Ar interface
+Network interface to listen on.
+.It Fl L
+Do not create playlists.
 .It Fl m Ar model_number
 Model number the daemon will report to clients in its XML description.
 .It Fl P Ar pid_filename
@@ -72,6 +79,8 @@ Serial number the daemon will report to clients in its XML description.
 Notify interval, in seconds; defaults to 895 seconds.
 .It Fl V
 Show the program version and exit.
+.It Fl v
+Verbose output.
 .It Fl w Ar url
 Sets the presentation url; the default is http address.
 .El
