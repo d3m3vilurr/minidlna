@@ -21,7 +21,7 @@
 .\"
 .\" On Debian systems, the complete text of the GNU General
 .\" Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
-.Dd July 21, 2011
+.Dd July 21, 2012
 .Dt MINIDLNA.CONF \&5 "File Formats Manual"
 .Os Debian
 .Sh NAME
@@ -47,6 +47,7 @@ keywords and their meanings are as follows:
 List of filenames to check for when searching for album art cache, separated by
 forward slashes
 .Pq Ql / .
+This option can be specified more than once.
 .It Cm db_dir
 Path to the directory
 .Nm minidlna
@@ -55,39 +56,63 @@ should use to store its database and album art cache. Uses
 by default.
 .It Cm enable_tivo
 Set to
-.Ql yes
+.Dq yes
 to enable support for streaming JPEG and mp3 files to a TiVo supporting HMO.
 Set to
-.Ql no
+.Dq no
 otherwise.
 .It Cm friendly_name
 Customize the name that the
 .Nm minidlna
-server sends to clients.
+server sends to clients. Defaults to
+.Dq hostname:\ username .
 .It Cm inotify
 Set to
-.Ql yes
+.Dq yes
 to enable inotify monitoring of the files under
 .Cm media_dir
 to automatically discover new files. Set to
-.Ql no
+.Dq no
 to disable inotify.
 .It Cm listening_ip
 IPv4 address
 .Nm minidlna
-should listen on.
+should listen on
+.Pq e.g. Dq 198.51.100.1/24 .
+If omitted, the mask defaults to /24. This option can be specified more than
+once. If unspecified or empty,
+.Nm minidlna
+binds to the network interfaces given in
+.Cm network_interface ;
+if it is also unspecified or empty, it binds to all the valid network
+interfaces
+.Pq except loopback .
 .It Cm log_dir
 Path to the directory where the log file should be stored. Defaults to
 .Pa /var/log .
 .It Cm log_level
-Defines down to which level of importance messages should be logged. Must be
-one of
+Defines the type of messages that should be logged, and down to which level of
+importance they should be considered.
+.Pp
+The possible types are
+.Dq artwork ,
+.Dq database ,
+.Dq general ,
+.Dq http ,
+.Dq inotify ,
+.Dq metadata ,
+.Dq scanner ,
+.Dq ssdp
+and
+.Dq tivo .
+.Pp
+The levels are
 .Dq off ,
 .Dq fatal ,
 .Dq error ,
 .Dq warn ,
 .Dq info
-or
+and
 .Dq debug ,
 listed here in order of decreasing importance.
 .Dq off
@@ -96,6 +121,17 @@ turns off logging messages entirely,
 logs the most critical messages only, and so on down to
 .Dq debug
 that logs every single messages.
+.Pp
+The types are comma-separated, followed by an equal sign
+.Pq Ql = ,
+followed by a level that applies to the preceding types. This can be repeated,
+separating each of these constructs with a comma.
+.Pp
+Defaults to
+.Dq general,artwork,database,inotify,scanner,metadata,http,ssdp,tivo=warn
+which logs every type of message at the
+.Dq warn
+level.
 .It Cm media_dir
 Path to the directory containing the media files the
 .Nm minidlna
@@ -153,19 +189,34 @@ Set the model name reported to clients.
 Defaults to
 .Dq Windows Media Connect compatible (MiniDLNA) .
 .It Cm model_number
-Set the model number reported to clients.
+Set the model number reported to clients. Defaults to the version number of
+.Nm minidlna .
 .It Cm network_interface
-Network interface to bind to.
+Network interface(s) to bind to
+.Pq e.g. eth0 ,
+comma delimited. This option can be specified more than once. If unspecified or empty,
+.Nm minidlna
+binds to the IPs given in
+.Cm listening_ip ;
+if it is also unspecified or empty, it binds to all the valid network
+interfaces
+.Pq except loopback .
 .It Cm notify_interval
 Set the notify interval, in seconds. The default is 895 seconds.
 .It Cm port
-Port for HTTP traffic. Defaults to port 80.
+Port number for HTTP traffic
+.Pq descriptions, SOAP, media transfe .
+This option is mandatory, unless the port number is specified on the
+command-line using
+.Fl p Pq see Xr minidlna 1 .
 .It Cm presentation_url
-.\" TODO: Needs a better description.
-Define the presentation URL.
+Define the URL presented to clients
+.Pq e.g. Dq http://example.com:80 .
+The default is
+.Ql / .
 .It Cm root_container
 Use a different container as the root of the tree exposed to clients. The
-possible values are:
+possible values 
 .Bl -bullet -offset indent -compact
 .It
 .Ql \&.
@@ -197,14 +248,15 @@ and the client device is audio only, then
 .Dq Music/Folders
 will be used as the root container.
 .It Cm serial
-Set the serial number reported to clients.
+Set the serial number reported to clients. Defaults to
+.Dq 00000000 .
 .It Cm strict_dlna
 Set to
-.Ql yes
+.Dq yes
 to strictly adhere to DLNA standards. This will allow server-side downscaling
 of very large JPEG images, which may hurt JPEG serving performance on (at
 least) Sony DLNA products. Set to
-.Ql no
+.Dq no
 otherwise.
 .El
 .Sh FILES

@@ -13,7 +13,7 @@
 .\" 3. Neither the name of the University nor the names of its contributors
 .\"    may be used to endorse or promote products derived from this software
 .\"    without specific prior written permission.
-.Dd July 20, 2012
+.Dd July 21, 2012
 .Dt MINIDLNA \&1 "General Commands Manual"
 .Os Debian
 .Sh NAME
@@ -44,14 +44,30 @@ daemon is a DLNA/UPnP-AV server sharing media files (video, music and pictures)
 to clients on your network. Clients are typically multimedia players such as
 vlc, totem and xbmc, and devices such as portable media players, smartphones,
 televisions, video game entertainment systems and blu-ray players.
+.Pp
+By default,
+.Nm minidlna
+listens on all the network interfaces (except loopback) for clients. This
+behavior can be changed on the command-line using the
+.Fl a
+or
+.Fl i
+options, or in the configuration file through the
+.Cm listening_ip
+or
+.Cm network_interface
+options
+.Pq see Xr minidlna.conf 5 for details .
 .Sh OPTIONS
 All the options below
 .Pq except Fl f
-can also be set in a configuration file
-.Pq see Xr minidlna.conf 5 .
+can also be set in a configuration file, as described in
+.Xr minidlna.conf 5 .
 .Bl -tag -width Ds
 .It Fl a Ar ip_address
-IP address to listen on.
+IP address to listen on
+.Pq e.g. 198.51.100.1/24 .
+If the mask is omitter, it defaults to /24. Can be specified more than once.
 .It Fl d
 Activate debug mode (do not daemonize).
 .It Fl f Ar config_file
@@ -61,7 +77,7 @@ by default.
 .It Fl h
 Show help and exit.
 .It Fl i Ar interface
-Network interface to listen on.
+Network interface to listen on. Can be specified more than once.
 .It Fl L
 Do not create playlists.
 .It Fl m Ar model_number
@@ -70,7 +86,7 @@ Model number the daemon will report to clients in its XML description.
 PID file to use; the default is
 .Pa /run/minidlna.pid .
 .It Fl p Ar port
-Port number to listen on; the default is port 80.
+Port number to listen on.
 .It Fl R
 Forces a full rescan of the media files.
 .It Fl s Ar serial
