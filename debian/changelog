@@ -10,7 +10,13 @@ minidlna (1.0.25+dfsg-1) unstable; urgency=low
     - Add support for the latest ffmpeg/libav library versions
     - Fix a potential crash on requests for a resize of a non-existent image
     - Make DeviceID checking more permissive for Sagem Radio
-  * Update the minidlna(1) man page with new command-line options
+  * Update the documentation with new options and various corrections in the
+    following places:
+    - minidlna(1) man page;
+    - minidlna.conf(5) man page;
+    - output of "minidlna -h";
+    - default configuration file.
+  * Display the user minidlna is running as in the default friendly name
   * Adapt "Get IP and MAC addresses in a non Linux-specific way" patch to
     upstream changes
   * Fix Makefile so that hardening flags are actually passed to the compiler
@@ -23,8 +29,10 @@ minidlna (1.0.25+dfsg-1) unstable; urgency=low
   * postrm: Do not remove the configuration file in the purge case, it has
     already been removed by dpkg before the script is called
   * Replace `...` with $(...) in all maintainer scripts
+  * Do not include scripts specific to the git repository in the debian/
+    directory in the source package
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Fri, 20 Jul 2012 17:26:54 +0200
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Sat, 21 Jul 2012 16:14:52 +0200
 
 minidlna (1.0.24+dfsg-1) unstable; urgency=low
 
