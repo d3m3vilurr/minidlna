@@ -28,11 +28,12 @@ minidlna (1.0.25+dfsg-1) unstable; urgency=low
     admin changed the default
   * postrm: Do not remove the configuration file in the purge case, it has
     already been removed by dpkg before the script is called
+  * Update period of copyright for debian/*
   * Replace `...` with $(...) in all maintainer scripts
   * Do not include scripts specific to the git repository in the debian/
     directory in the source package
 
- -- Benoît Knecht <benoit.knecht@fsfe.org>  Sat, 21 Jul 2012 16:14:52 +0200
+ -- Benoît Knecht <benoit.knecht@fsfe.org>  Wed, 25 Jul 2012 17:11:59 +0200
 
 minidlna (1.0.24+dfsg-1) unstable; urgency=low
 
