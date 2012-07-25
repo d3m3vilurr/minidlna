@@ -1,4 +1,4 @@
-minidlna (1.0.25+dfsg-1) unstable; urgency=low
+minidlna (1.0.25+dfsg-1) experimental; urgency=low
 
   * New upstream version
     - Fix a couple crash bugs on malformed WAV files
