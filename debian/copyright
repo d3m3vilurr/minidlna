@@ -46,7 +46,7 @@ Copyright: 2005, Robert Love <robert.w.love@intel.com>
 License: GPL-2
 
 Files: debian/*
-Copyright: 2010-2011, Benoît Knecht <benoit.knecht@fsfe.org>
+Copyright: 2010-2012, Benoît Knecht <benoit.knecht@fsfe.org>
 License: BSD-3-clause
 
 Files: debian/minidlna.preinst debian/minidlna.postinst
@@ -58,7 +58,7 @@ License: GPL-2
 
 Files: debian/minidlna.conf.5
 Copyright: 2009, Justin Maggard <jmaggard@users.sourceforge.net>
-           2010-2011, Benoît Knecht <benoit.knecht@fsfe.org>
+           2010-2012, Benoît Knecht <benoit.knecht@fsfe.org>
 License: GPL-2
 
 License: GPL-2
