@@ -7,3 +7,5 @@ testupnpdescgen
 config.h
 *.pyc
 *.mo
+.pc/
+debian/patches/

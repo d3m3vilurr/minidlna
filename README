@@ -21,6 +21,7 @@ and http://www.dlna.org/ for mode details on DLNA.
 See the INSTALL file for instructions on compiling, installing,
 and configuring minidlna.
 
+<<<<<<< HEAD
 Prerequisites
 ==================
 
@@ -32,5 +33,7 @@ Prerequisites
 - libsqlite3
 - libavformat (the ffmpeg libraries)
 
+=======
+>>>>>>> gitorious/master
 
 Justin Maggard

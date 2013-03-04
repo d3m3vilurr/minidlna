@@ -22,3 +22,11 @@ To Build and install :
 
 - Just run scons, and hope it works. :)
 - To install, run "sudo scons install", or just copy the binaries
+=======
+- libavutil
+- libavcodec
+- libuuid
+
+To Build and install :
+
+- Just run make, and hope it works. :)
