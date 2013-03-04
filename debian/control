@@ -15,8 +15,8 @@ Build-Depends: debhelper (>= 9),
                libvorbis-dev
 Standards-Version: 3.9.3
 Homepage: http://sourceforge.net/projects/minidlna/
-Vcs-Git: git://gitorious.org/debian-pkg/minidlna.git
-Vcs-Browser: https://gitorious.org/debian-pkg/minidlna
+Vcs-Git: git://github.com/d3m3vilurr/minidlna.git
+Vcs-Browser: https://github.com/d3m3vilurr/minidlna
 
 Package: minidlna
 Architecture: any
