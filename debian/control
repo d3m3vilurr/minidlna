@@ -12,7 +12,8 @@ Build-Depends: debhelper (>= 9),
                libjpeg-dev,
                libogg-dev,
                libsqlite3-dev,
-               libvorbis-dev
+               libvorbis-dev,
+               scons
 Standards-Version: 3.9.3
 Homepage: http://sourceforge.net/projects/minidlna/
 Vcs-Git: git://github.com/d3m3vilurr/minidlna.git

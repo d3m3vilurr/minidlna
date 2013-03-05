@@ -110,6 +110,19 @@ AddOption(
 
 datadir = GetOption('datadir')
 
+AddOption(
+    '--etcdir',
+    dest='etcdir',
+    type='string',
+    nargs=1,
+    action='store',
+    metavar='DIR',
+    default='%s/etc' % prefix,
+    help='installation prefix for the root of configure files'
+)
+
+etcdir = GetOption('etcdir')
+
 # below three variables are not yet used
 libdir = "%s/lib" % prefix
 includedir = "%s/include" % prefix
@@ -448,7 +461,7 @@ if GetOption("enable_nls"):
         "po/ja.po",
         "po/nb.po",
         "po/nl.po",
-		  "po/pl.po",
+        "po/pl.po",
         "po/ru.po",
         "po/sl.po",
         "po/sv.po"
@@ -468,4 +481,6 @@ env.Install(bindir, o)
 
 env.Install(datadir, env.Glob('icons/tux/*'))
 
-env.Alias('install', [bindir, datadir])
+env.Install(etcdir, ["minidlna.conf"])
+
+env.Alias('install', [bindir, datadir, etcdir])

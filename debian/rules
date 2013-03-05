@@ -12,4 +12,4 @@ override_dh_installchangelogs:
 override_dh_auto_install:
 	# The upstream install target does not install the configuration file,
 	# so we call make manually, adding the install-conf target.
-	DESTDIR=debian/minidlna make install install-conf
+	scons install --prefix=debian/minidlna
